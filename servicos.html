@@ -276,7 +276,7 @@
             <span class="letra-a">A</span><span class="letra-w">W</span>
             <span class="resto"> Construções</span>
         </h1>
-        <button class="botao-menu" onclick="window.parent.abrirMenu ? window.parent.abrirMenu() : abrirMenuLocal()">&#9776;</button>
+        <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
     <!-- 📝 CONTEÚDO DA PÁGINA -->
@@ -336,49 +336,47 @@
                 <h3 class="nome-servico">Reformas Completas</h3>
                 <p class="descricao-servico">
                     Renovação de ambientes, cozinhas, banheiros e áreas externas com planejamento detalhado e execução impecável, transformando seu espaço do jeito que você sempre sonhou.
-</p>
-</div>
+                </p>
+            </div>
 
-<!-- Serviço 6 -->
-<div class="cartao-servico">
-    <div class="icone-servico">🏢</div>
-    <h3 class="nome-servico">Empreiteiro / Obra Completa</h3>
-    <p class="descricao-servico">
-        Cuido da sua obra do início ao fim — você não precisa se preocupar com nada. Gerenciamos toda a equipe, materiais e prazos, garantindo qualidade, segurança e tranquilidade em cada etapa.
+            <!-- Serviço 6 -->
+            <div class="cartao-servico">
+                <div class="icone-servico">🏢</div>
+                <h3 class="nome-servico">Empreiteiro / Obra Completa</h3>
+                <p class="descricao-servico">
+                    Cuido da sua obra do início ao fim — você não precisa se preocupar com nada. Gerenciamos toda a equipe, materiais e prazos, garantindo qualidade, segurança e tranquilidade em cada etapa.
     </p>
 </div>
 </div>
 </div>
 
-<!-- 📋 MENU LATERAL -->
+<!-- 📋 MENU LATERAL 100% FUNCIONAL PARA GITHUB -->
 <div id="menuLateral" class="menu-lateral">
-    <div class="fechar-menu" onclick="window.parent.fecharMenu ? window.parent.fecharMenu() : fecharMenuLocal()">&times;</div>
-    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('inicial.html') : irParaLocal('inicial.html')">Início</a>
-    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('nosso-trabalho.html') : irParaLocal('nosso-trabalho.html')">Nossos Trabalhos</a>
-    <a href="javascript:void(0)" class="item-menu" onclick="fecharMenuLocal()">Serviços</a>
-    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('avaliacoes.html') : irParaLocal('avaliacoes.html')">Avaliações</a>
-    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('contato.html') : irParaLocal('contato.html')">Contato</a>
+    <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
+    <div class="item-menu" onclick="irPara('index.html')">Início</div>
+    <div class="item-menu" onclick="irPara('nosso-trabalho.html')">Nossos Trabalhos</div>
+    <div class="item-menu" onclick="irPara('servicos.html')">Serviços</div>
+    <div class="item-menu" onclick="irPara('avaliacoes.html')">Avaliações</div>
+    <div class="item-menu" onclick="irPara('contato.html')">Contato</div>
 </div>
 
-<!-- ⚡ FUNÇÕES LOCAIS DE SEGURANÇA (APENAS O NECESSÁRIO) -->
+<!-- ⚡ FUNÇÕES DE NAVEGAÇÃO CERTAS PARA FUNCIONAR NO GITHUB -->
 <script>
-function abrirMenuLocal() {
-    const menu = document.getElementById('menuLateral');
-    menu.classList.add('aberto');
+function abrirMenu() {
+    document.getElementById('menuLateral').classList.add('aberto');
     document.body.style.overflow = 'hidden';
 }
 
-function fecharMenuLocal() {
-    const menu = document.getElementById('menuLateral');
-    menu.classList.remove('aberto');
+function fecharMenu() {
+    document.getElementById('menuLateral').classList.remove('aberto');
     document.body.style.overflow = 'auto';
 }
 
-function irParaLocal(pagina) {
-    fecharMenuLocal();
+function irPara(pagina) {
+    fecharMenu();
     setTimeout(() => {
         window.location.href = pagina;
-    }, 80);
+    }, 100);
 }
 </script>
 

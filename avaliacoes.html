@@ -63,10 +63,10 @@
                 color: #39ff14;
                 font-weight: bold;
                 font-size: 1.4rem;
-                margin: 0 -2px; /* Deixa elas bem próximas umas das outras */
+                margin: 0 -2px;
                 display: inline-block;
                 animation: piscar 0.8s ease-in-out infinite alternate;
-                text-shadow: 0 0 5px #39ff14; /* Brilho para ficar mais bonita */
+                text-shadow: 0 0 5px #39ff14;
             }
 
             /* SETAS VERMELHAS - BONITAS, PRÓXIMAS E PISCANDO */
@@ -74,10 +74,10 @@
                 color: #ff3333;
                 font-weight: bold;
                 font-size: 1.4rem;
-                margin: 0 -2px; /* Deixa elas bem próximas umas das outras */
+                margin: 0 -2px;
                 display: inline-block;
                 animation: piscar 0.8s ease-in-out infinite alternate;
-                text-shadow: 0 0 5px #ff3333; /* Brilho para ficar mais bonita */
+                text-shadow: 0 0 5px #ff3333;
             }
 
             /* ⭐ ESTILOS DAS AVALIAÇÕES - DESIGN ORIGINAL MANTIDO */
@@ -166,10 +166,8 @@
     <div class="faixa-superior">
         <div class="texto-wrapper">
             <span class="texto-animado">
-                <!-- APENAS 3 SETAS VERDES, BEM PRÓXIMAS -->
                 <span class="seta-verde">➤</span><span class="seta-verde">➤</span><span class="seta-verde">➤</span>
                 Especializado em Construção, Reformas e Instalações. Qualidade e Garantia em Cada Serviço!
-                <!-- APENAS 3 SETAS VERMELHAS, BEM PRÓXIMAS -->
                 <span class="seta-vermelha">➤</span><span class="seta-vermelha">➤</span><span class="seta-vermelha">➤</span>
                 Trabalhamos com alvenaria, elétrica, hidráulica, pintura e estruturas metálicas.
                 <span class="seta-verde">➤</span><span class="seta-verde">➤</span><span class="seta-verde">➤</span>
@@ -184,7 +182,7 @@
         </div>
     </div>
 
-    <!-- 🧭 CABEÇALHO - DESIGN E CORES EXATAS COMBINADAS -->
+    <!-- 🧭 CABEÇALHO -->
     <div class="cabecalho bg-white w-full p-[18px_25px] flex justify-between items-center sticky top-0 z-[9999] shadow-[0_2px_8px_rgba(0,0,0,0.1)]">
         <h1 class="logo text-[1.8rem] font-bold flex items-baseline gap-[6px]">
             <span class="text-[#39ff14]">A</span>
@@ -194,17 +192,17 @@
         <button class="bg-transparent border-none text-[1.9rem] cursor-pointer text-[#39ff14] hover:opacity-85" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- 📋 MENU LATERAL - FUNCIONALIDADE 100% DO CÓDIGO DE REFERÊNCIA -->
+    <!-- 📋 MENU LATERAL - AJUSTADO PARA GITHUB -->
     <div id="menuLateral" class="menu-lateral">
         <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
-        <a href="javascript:void(0)" class="item-menu" onclick="irPara('inicial.html')">Início</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('index.html')">Início</a>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('nosso-trabalho.html')">Nossos Trabalhos</a>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('servicos.html')">Serviços</a>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('avaliacoes.html')">Avaliações</a>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('contato.html')">Contato</a>
     </div>
 
-    <!-- 📝 SEÇÃO DE AVALIAÇÕES - APENAS CONTEÚDO RELACIONADO, DESIGN MANTIDO -->
+    <!-- 📝 SEÇÃO DE AVALIAÇÕES -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
@@ -269,7 +267,7 @@
         </div>
     </section>
 
-<!-- ⚡ FUNÇÕES DO MENU - EXATAS DO CÓDIGO FUNCIONAL -->
+<!-- ⚡ FUNÇÕES DO MENU -->
 <script>
 function abrirMenu() {
     const menu = document.getElementById('menuLateral');
@@ -289,14 +287,14 @@ function irPara(pagina) {
     fecharMenu();
     setTimeout(function() {
         const pastaAtual = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        const enderecoCompleto = pastaAtual + pagina;
-        window.location.href = enderecoCompleto;
-        window.location.assign(enderecoCompleto);
-    }, 100);
+const enderecoCompleto = pastaAtual + pagina;
+window.location.href = enderecoCompleto;
+window.location.assign(enderecoCompleto);
+}, 100);
 }
 </script>
 
-<!-- 🚀 FIREBASE CONECTADO E FUNCIONAL -->
+<!-- 🚀 FIREBASE - 100% ORIGINAL, NADA ALTERADO, CONFIGURAÇÕES IGUAIS ÀS SUAS -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
     import { getDatabase, ref, push, onValue, orderByChild, query } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
@@ -393,3 +391,4 @@ function irPara(pagina) {
 
 </body>
 </html>
+

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços | AW Construções</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { background-color: #0a2463; font-family: sans-serif; overflow-x: hidden; }
+
+            /* 🚩 LETREIRO ANIMADO - IGUAL AO ORIGINAL */
+            .faixa-letreiro {
+                background-color: #0a2463;
+                overflow: hidden;
+                white-space: nowrap;
+                padding: 12px 0;
+                width: 100%;
+                position: relative;
+                z-index: 9999;
+            }
+
+            .texto-wrapper {
+                display: inline-block;
+                animation: rodaLetreiro 20s linear infinite;
+                transform: translateX(50vw);
+            }
+
+            .texto-letreiro {
+                display: inline-block;
+                font-size: 0.99rem;
+                line-height: 1.45rem;
+                font-weight: 500;
+                color: #ffffff;
+                margin: 0;
+                padding-right: 5rem;
+            }
+
+            .seta-verde {
+                color: #39ff14;
+                font-weight: bold;
+                margin-right: 8px;
+                display: inline-block;
+                animation: piscar 0.8s ease-in-out infinite alternate;
+            }
+
+            .seta-vermelha {
+                color: #ff3333;
+                font-weight: bold;
+                margin: 0 8px;
+                display: inline-block;
+                animation: piscar 0.8s ease-in-out infinite alternate;
+            }
+
+            /* 🧭 CABEÇALHO - MESMO MODELO */
+            .cabecalho {
+                background-color: #0a2463;
+                width: 100%;
+                padding: 18px 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 9999;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                font-weight: bold;
+                display: flex;
+                align-items: baseline;
+                gap: 6px;
+            }
+
+            .logo .letra-a { color: #39ff14; }
+            .logo .letra-w { color: #ff9900; }
+            .logo .resto { color: #ffffff; font-weight: 500; }
+
+            .botao-menu {
+                background: transparent;
+                border: none;
+                font-size: 1.9rem;
+                cursor: pointer;
+                color: #39ff14;
+                transition: opacity 0.2s ease;
+            }
+
+            .botao-menu:hover { opacity: 0.85; }
+
+            /* 📋 MENU LATERAL - MESMA ESTRUTURA */
+            .menu-lateral {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: #0a2463;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                transition: left 0.35s ease;
+                display: flex;
+                flex-direction: column;
+                padding: 25px 20px;
+            }
+
+            .menu-lateral.aberto { left: 0; }
+
+            .fechar-menu {
+                text-align: right;
+                font-size: 1.7rem;
+                color: #ffffff;
+                font-weight: bold;
+                cursor: pointer;
+                margin-bottom: 35px;
+            }
+
+            .item-menu {
+                display: block;
+                width: 100%;
+                font-size: 1.3rem;
+                font-weight: 500;
+                margin: 12px 0;
+                padding: 15px 20px;
+                text-decoration: none;
+                color: #ffffff;
+                background-color: #051a48;
+                border-radius: 12px;
+                border: none;
+                transition: all 0.25s ease;
+                box-shadow: 0 1.5px 4px rgba(0,0,0,0.25);
+                text-align: left;
+                cursor: pointer;
+            }
+
+            .item-menu:hover {
+                background-color: #001540;
+                color: #39ff14;
+                transform: translateX(4px);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.35);
+            }
+
+            /* 🎬 ANIMAÇÕES - IGUAIS AO ORIGINAL */
+            @keyframes rodaLetreiro {
+                0%   { transform: translateX(50vw); }
+                100% { transform: translateX(-50%); }
+            }
+
+            @keyframes piscar {
+                0%   { opacity: 0.6; }
+                100% { opacity: 1; }
+            }
+
+            /* 📝 ESTILOS ESPECÍFICOS DA PÁGINA DE SERVIÇOS */
+            .conteudo {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                background-color: #0a2463;
+                padding: 30px 25px 50px 25px;
+                gap: 40px;
+            }
+
+            .cabecalho-pagina {
+                text-align: center;
+                animation: aparecer 0.8s ease-out both;
+            }
+
+            @keyframes aparecer {
+                0% { opacity: 0; transform: translateY(25px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+
+            .titulo-principal {
+                font-size: clamp(2.2rem, 7vw, 3.2rem);
+                font-weight: bold;
+                margin-bottom: 12px;
+                line-height: 1.1;
+            }
+
+            .titulo-principal .texto-amarelo { color: #ff9900; }
+            .titulo-principal .texto-branco { color: #ffffff; }
+
+            .subtitulo-principal {
+                color: #e2e4ec;
+                font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+                font-weight: 400;
+                line-height: 1.5;
+                max-width: 750px;
+                margin: 0 auto;
+            }
+
+            /* 🛠️ GRID DE SERVIÇOS */
+            .grade-servicos {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 22px;
+                width: 100%;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+
+            .cartao-servico {
+                background-color: #ffffff;
+                border-radius: 18px;
+                padding: 28px 24px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                border-bottom: 4px solid #ff9900;
+                transition: all 0.3s ease;
+                animation: aparecer 0.8s ease-out both;
+            }
+
+            .cartao-servico:nth-child(1) { animation-delay: 0.1s; }
+            .cartao-servico:nth-child(2) { animation-delay: 0.2s; }
+            .cartao-servico:nth-child(3) { animation-delay: 0.3s; }
+            .cartao-servico:nth-child(4) { animation-delay: 0.4s; }
+            .cartao-servico:nth-child(5) { animation-delay: 0.5s; }
+            .cartao-servico:nth-child(6) { animation-delay: 0.6s; }
+
+            .cartao-servico:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.28);
+                border-bottom-color: #39ff14;
+            }
+
+            .icone-servico {
+                font-size: 3.2rem;
+                color: #ff9900;
+                margin-bottom: 18px;
+                transition: color 0.25s ease;
+            }
+
+            .cartao-servico:hover .icone-servico {
+                color: #39ff14;
+            }
+
+            .nome-servico {
+                font-size: clamp(1.6rem, 5vw, 1.9rem);
+                font-weight: bold;
+                color: #1a1a1a;
+                margin-bottom: 14px;
+            }
+
+            .descricao-servico {
+                font-size: clamp(1rem, 3vw, 1.12rem);
+                color: #444444;
+                line-height: 1.6;
+                font-weight: 400;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🚩 LETREIRO COM SEUS DADOS CORRETOS -->
+    <div class="faixa-letreiro">
+        <div class="texto-wrapper">
+            <span class="texto-letreiro">
+                <span class="seta-verde">&gt;&gt;&gt;</span>
+                <span class="seta-vermelha">&gt;&gt;&gt;</span>
+                Especializado em Construção, Reformas e Instalações. Atendimento direto com William — WhatsApp: 31990721928 | Qualidade e Garantia em Cada Serviço!
+            </span>
+            <span class="texto-letreiro">
+                <span class="seta-verde">&gt;&gt;&gt;</span>
+                <span class="seta-vermelha">&gt;&gt;&gt;</span>
+                Especializado em Construção, Reformas e Instalações. Atendimento direto com William — WhatsApp: 31990721928 | Qualidade e Garantia em Cada Serviço!
+            </span>
+        </div>
+    </div>
+
+    <!-- 🧩 CABEÇALHO -->
+    <div class="cabecalho">
+        <h1 class="logo">
+            <span class="letra-a">A</span><span class="letra-w">W</span>
+            <span class="resto"> Construções</span>
+        </h1>
+        <button class="botao-menu" onclick="window.parent.abrirMenu ? window.parent.abrirMenu() : abrirMenuLocal()">&#9776;</button>
+    </div>
+
+    <!-- 📝 CONTEÚDO DA PÁGINA -->
+    <div class="conteudo">
+        <div class="cabecalho-pagina">
+            <h2 class="titulo-principal">
+                <span class="texto-amarelo">Minha</span>
+                <span class="texto-branco"> Especialidade:</span><br>
+                <span class="texto-amarelo">Qualidade em Cada Serviço</span>
+            </h2>
+            <p class="subtitulo-principal">
+                Serviço completo, do início ao fim, com toda competência e profissionalismo que você merece.
+            </p>
+        </div>
+
+        <!-- 🛠️ LISTA DE SERVIÇOS -->
+        <div class="grade-servicos">
+            <!-- Serviço 1 -->
+            <div class="cartao-servico">
+                <div class="icone-servico">🔨</div>
+                <h3 class="nome-servico">Pedreiro Geral</h3>
+                <p class="descricao-servico">
+                    Alvenaria, reboco, contrapiso e estrutura com segurança e acabamento impecável.
+                </p>
+            </div>
+
+            <!-- Serviço 2 -->
+            <div class="cartao-servico">
+                <div class="icone-servico">⚡</div>
+                <h3 class="nome-servico">Eletricista Residencial</h3>
+                <p class="descricao-servico">
+                    Instalações dentro das normas técnicas — segurança total para sua casa e família.
+                </p>
+            </div>
+
+            <!-- Serviço 3 -->
+            <div class="cartao-servico">
+                <div class="icone-servico">🎨</div>
+                <h3 class="nome-servico">Gesseiro e Pintor</h3>
+                <p class="descricao-servico">
+                    Acabamentos finos, lisos e bem feitos que valorizam e embelezam todo o ambiente.
+                </p>
+            </div>
+
+            <!-- Serviço 4 -->
+            <div class="cartao-servico">
+                <div class="icone-servico">🚰</div>
+                <h3 class="nome-servico">Encanador Hidráulico</h3>
+                <p class="descricao-servico">
+                    Instalações e reparos hidráulicos sem vazamentos, duráveis e com total garantia de funcionamento.
+                </p>
+            </div>
+
+            <!-- Serviço 5 -->
+            <div class="cartao-servico">
+                <div class="icone-servico">🔧</div>
+                <h3 class="nome-servico">Reformas Completas</h3>
+                <p class="descricao-servico">
+                    Renovação de ambientes, cozinhas, banheiros e áreas externas com planejamento detalhado e execução impecável, transformando seu espaço do jeito que você sempre sonhou.
+</p>
+</div>
+
+<!-- Serviço 6 -->
+<div class="cartao-servico">
+    <div class="icone-servico">🏢</div>
+    <h3 class="nome-servico">Empreiteiro / Obra Completa</h3>
+    <p class="descricao-servico">
+        Cuido da sua obra do início ao fim — você não precisa se preocupar com nada. Gerenciamos toda a equipe, materiais e prazos, garantindo qualidade, segurança e tranquilidade em cada etapa.
+    </p>
+</div>
+</div>
+</div>
+
+<!-- 📋 MENU LATERAL -->
+<div id="menuLateral" class="menu-lateral">
+    <div class="fechar-menu" onclick="window.parent.fecharMenu ? window.parent.fecharMenu() : fecharMenuLocal()">&times;</div>
+    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('inicial.html') : irParaLocal('inicial.html')">Início</a>
+    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('nosso-trabalho.html') : irParaLocal('nosso-trabalho.html')">Nossos Trabalhos</a>
+    <a href="javascript:void(0)" class="item-menu" onclick="fecharMenuLocal()">Serviços</a>
+    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('avaliacoes.html') : irParaLocal('avaliacoes.html')">Avaliações</a>
+    <a href="javascript:void(0)" class="item-menu" onclick="window.parent.irPara ? window.parent.irPara('contato.html') : irParaLocal('contato.html')">Contato</a>
+</div>
+
+<!-- ⚡ FUNÇÕES LOCAIS DE SEGURANÇA (APENAS O NECESSÁRIO) -->
+<script>
+function abrirMenuLocal() {
+    const menu = document.getElementById('menuLateral');
+    menu.classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+}
+
+function fecharMenuLocal() {
+    const menu = document.getElementById('menuLateral');
+    menu.classList.remove('aberto');
+    document.body.style.overflow = 'auto';
+}
+
+function irParaLocal(pagina) {
+    fecharMenuLocal();
+    setTimeout(() => {
+        window.location.href = pagina;
+    }, 80);
+}
+</script>
+
+</body>
+</html>

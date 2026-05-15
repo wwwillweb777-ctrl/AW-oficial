@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AW Construções - Contato</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D4AF37',
+                        secondary: '#333333',
+                        dark: '#121212',
+                        whatsapp: '#25D366'
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base { 
+            * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; } 
+            body { margin: 0; padding: 0; background-color: #121212; overflow-x: hidden; } 
+        }
+        @layer utilities {
+            .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+            .transition-custom { transition: all 0.3s ease; }
+
+            /* 🚩 LETREIRO ANIMADO - 3 VERDES + 3 VERMELHAS, BONITAS E PRÓXIMAS */
+            .faixa-superior {
+                background-color: #000000;
+                overflow: hidden;
+                white-space: nowrap !important;
+                padding: 12px 0;
+                width: 100%;
+                position: relative;
+                z-index: 9999;
+                border-bottom: 2px solid #D4AF37;
+            }
+
+            .texto-wrapper {
+                display: inline-block;
+                animation: rodaLetreiro 20s linear infinite;
+                transform: translateX(50vw);
+            }
+
+            .texto-animado {
+                display: inline-block;
+                font-size: 1.1rem;
+                line-height: 1.8rem;
+                font-weight: 500;
+                color: #ffffff;
+                margin: 0;
+                padding-right: 5rem;
+            }
+
+            .seta-verde {
+                color: #39ff14;
+                font-weight: bold;
+                font-size: 1.3rem;
+                margin: 0 -2px;
+                display: inline-block;
+                animation: piscar 0.8s ease-in-out infinite alternate;
+                text-shadow: 0 0 5px #39ff14;
+            }
+
+            .seta-vermelha {
+                color: #ff3333;
+                font-weight: bold;
+                font-size: 1.3rem;
+                margin: 0 -2px;
+                display: inline-block;
+                animation: piscar 0.8s ease-in-out infinite alternate;
+                text-shadow: 0 0 5px #ff3333;
+            }
+
+            /* 📋 MENU LATERAL */
+            .menu-lateral {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: #0a2463;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                transition: left 0.35s ease;
+                display: flex;
+                flex-direction: column;
+                padding: 25px 20px;
+            }
+
+            .menu-lateral.aberto { left: 0; }
+
+            .fechar-menu {
+                text-align: right;
+                font-size: 1.7rem;
+                color: #ffffff;
+                font-weight: bold;
+                cursor: pointer;
+                margin-bottom: 35px;
+            }
+
+            .item-menu {
+                display: block;
+                width: 100%;
+                font-size: 1.3rem;
+                font-weight: 500;
+                margin: 12px 0;
+                padding: 15px 20px;
+                text-decoration: none;
+                color: #ffffff;
+                background-color: #051a48;
+                border-radius: 12px;
+                border: none;
+                transition: all 0.25s ease;
+                box-shadow: 0 1.5px 4px rgba(0,0,0,0.25);
+                text-align: left;
+                cursor: pointer;
+            }
+
+            .item-menu:hover {
+                background-color: #001540;
+                color: #39ff14;
+                transform: translateX(4px);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.35);
+            }
+
+            /* 🎬 ANIMAÇÕES */
+            @keyframes rodaLetreiro {
+                0%   { transform: translateX(50vw); }
+                100% { transform: translateX(-50%); }
+            }
+
+            @keyframes piscar {
+                0%   { opacity: 0.4; }
+                100% { opacity: 1; }
+            }
+        }
+    </style>
+    
+</head> 
+<body>
+
+    <!-- 🚩 LETREIRO -->
+    <div class="faixa-superior">
+        <div class="texto-wrapper">
+            <span class="texto-animado">
+                <span class="seta-verde">➤</span><span class="seta-verde">➤</span><span class="seta-verde">➤</span>
+                Especializado em Construção, Reformas e Instalações. Qualidade e Garantia em Cada Serviço!
+                <span class="seta-vermelha">➤</span><span class="seta-vermelha">➤</span><span class="seta-vermelha">➤</span>
+                Atendimento em todo o estado de Minas Gerais | WhatsApp: (31) 99072-1928
+                <span class="seta-verde">➤</span><span class="seta-verde">➤</span><span class="seta-verde">➤</span>
+            </span>
+            <span class="texto-animado">
+                <span class="seta-verde">➤</span><span class="seta-verde">➤</span><span class="seta-verde">➤</span>
+                Especializado em Construção, Reformas e Instalações. Qualidade e Garantia em Cada Serviço!
+                <span class="seta-vermelha">➤</span><span class="seta-vermelha">➤</span><span class="seta-vermelha">➤</span>
+                Atendimento em todo o estado de Minas Gerais | WhatsApp: (31) 99072-1928
+                <span class="seta-verde">➤</span><span class="seta-verde">➤</span><span class="seta-verde">➤</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- 🧭 CABEÇALHO -->
+    <div class="cabecalho bg-black w-full p-[18px_25px] flex justify-between items-center sticky top-0 z-[9999] shadow-[0_2px_8px_rgba(0,0,0,0.5)] border-b-2 border-primary">
+        <h1 class="logo text-[1.8rem] font-bold flex items-baseline gap-[6px]">
+            <span class="text-[#39ff14]">A</span>
+            <span class="text-[#ff9900]">W</span>
+            <span class="text-primary"> Construções</span>
+        </h1>
+        <button class="bg-transparent border-none text-[1.9rem] cursor-pointer text-[#39ff14] hover:opacity-85" onclick="abrirMenu()">&#9776;</button>
+    </div>
+
+    <!-- 📋 MENU LATERAL -->
+    <div id="menuLateral" class="menu-lateral">
+        <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('inicial.html')">Início</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('nosso-trabalho.html')">Nossos Trabalhos</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('servicos.html')">Serviços</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('avaliacoes.html')">Avaliações</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('contato.html')">Contato</a>
+    </div>
+
+    <!-- 📝 SEÇÃO PRINCIPAL DE CONTATO -->
+    <section class="py-16 bg-dark text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-primary mb-4">Entre em Contato</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg">Vamos transformar o seu projeto em realidade? Estou à disposição para tirar dúvidas, enviar orçamentos e atender você com toda a qualidade que merece.</p>
+            </div>
+
+            <!-- 📱 DADOS DE CONTATO -->
+            <div class="max-w-3xl mx-auto bg-black rounded-xl shadow-2xl p-8 border-2 border-primary">
+                <div class="text-center mb-10">
+                    <h3 class="text-2xl font-semibold text-white mb-2">William | Pedreiro Geral e Empreiteiro</h3>
+                    <p class="text-gray-400">15 anos de experiência em construção civil</p>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- 📍 ENDEREÇO E ATENDIMENTO -->
+                    <div class="flex flex-col md:flex-row items-center gap-6 bg-secondary/20 p-6 rounded-lg border-l-4 border-primary">
+                        <i class="fa-solid fa-location-dot text-primary text-4xl"></i>
+                        <div class="text-center md:text-left">
+                            <h4 class="text-lg font-bold text-white mb-1">Localização e Área de Atendimento</h4>
+                            <p class="text-gray-300">Bairro Veneza – Ribeirão das Neves, MG</p>
+                            <p class="text-gray-300 mt-1">Atendimento: Belo Horizonte, Região Metropolitana e todo o estado de Minas Gerais</p>
+                        </div>
+                    </div>
+
+                    <!-- 📞 TELEFONE / WHATSAPP -->
+                    <a href="https://wa.me/5531990721928" target="_blank" class="flex flex-col md:flex-row items-center gap-6 bg-whatsapp/20 p-6 rounded-lg border-l-4 border-whatsapp hover:bg-whatsapp/30 transition-custom">
+                        <i class="fa-brands fa-whatsapp text-whatsapp text-4xl"></i>
+                        <div class="text-center md:text-left">
+                            <h4 class="text-lg font-bold text-white mb-1">WhatsApp / Telefone</h4>
+                            <p class="text-gray-200 text-xl font-semibold">(31) 99072-1928</p>
+                            <p class="text-gray-300 text-sm mt-1">Clique aqui para falar diretamente comigo e pedir o seu orçamento!</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 💬 FRASE DE DESTAQUE -->
+                <div class="mt-12 text-center">
+                    <p class="text-xl italic text-gray-300">“Construindo sonhos, reformando vidas e entregando resultados que superam expectativas — com a experiência de quem realmente entende do assunto.”</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📌 RODAPÉ -->
+    <footer class="bg-black py-8 border-t-2 border-primary">
+        <div class="container mx-auto px-4 text-center text-gray-400 text-sm">
+            <p>© 2026 William - AW Construções | Bairro Veneza, Ribeirão das Neves - MG</p>
+            <p class="mt-2">Qualidade que você pode confiar, força que você pode ver e experiência que faz toda a diferença!</p>
+        </div>
+    </footer>
+
+<!-- ⚡ FUNÇÕES DO MENU -->
+<script>
+function abrirMenu() {
+    const menu = document.getElementById('menuLateral');
+    menu.classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+    document.body.style.pointerEvents = 'auto';
+}
+
+function fecharMenu() {
+    const menu = document.getElementById('menuLateral');
+    menu.classList.remove('aberto');
+    document.body.style.overflow = 'auto';
+    document.body.style.pointerEvents = 'auto';
+}
+
+function irPara(pagina) {
+    fecharMenu();
+    setTimeout(function() {
+        const pastaAtual = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        const enderecoCompleto = pastaAtual + pagina;
+        window.location.href = enderecoCompleto;
+        window.location.assign(enderecoCompleto);
+    }, 100);
+}
+</script>
+
+</body>
+</html>

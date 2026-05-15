@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AW Construções - Nossos Trabalhos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { background-color: #0a2463; font-family: sans-serif; overflow-x: hidden; }
+
+            /* 🚩 LETREIRO ANIMADO */
+            .faixa-letreiro {
+                background-color: #0a2463;
+                overflow: hidden;
+                white-space: nowrap;
+                padding: 12px 0;
+                width: 100%;
+                position: relative;
+                z-index: 9999;
+            }
+
+            .texto-wrapper {
+                display: inline-block;
+                animation: rodaLetreiro 20s linear infinite;
+                transform: translateX(50vw);
+            }
+
+            .texto-letreiro {
+                display: inline-block;
+                font-size: 0.99rem;
+                line-height: 1.45rem;
+                font-weight: 500;
+                color: #ffffff;
+                margin: 0;
+                padding-right: 5rem;
+            }
+
+            .seta-verde {
+                color: #39ff14;
+                font-weight: bold;
+                margin-right: 8px;
+                display: inline-block;
+                animation: piscar 0.8s ease-in-out infinite alternate;
+            }
+
+            .seta-vermelha {
+                color: #ff3333;
+                font-weight: bold;
+                margin: 0 8px;
+                display: inline-block;
+                animation: piscar 0.8s ease-in-out infinite alternate;
+            }
+
+            /* 🧭 CABEÇALHO */
+            .cabecalho {
+                background-color: #0a2463;
+                width: 100%;
+                padding: 18px 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 9999;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                font-weight: bold;
+                display: flex;
+                align-items: baseline;
+                gap: 6px;
+            }
+
+            .logo .letra-a { color: #39ff14; }
+            .logo .letra-w { color: #ff9900; }
+            .logo .resto { color: #ffffff; font-weight: 500; }
+
+            .botao-menu {
+                background: transparent;
+                border: none;
+                font-size: 1.9rem;
+                cursor: pointer;
+                color: #39ff14;
+                transition: opacity 0.2s ease;
+            }
+
+            .botao-menu:hover { opacity: 0.85; }
+
+            /* 📋 MENU LATERAL */
+            .menu-lateral {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: #0a2463;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                transition: left 0.35s ease;
+                display: flex;
+                flex-direction: column;
+                padding: 25px 20px;
+            }
+
+            .menu-lateral.aberto { left: 0; }
+
+            .fechar-menu {
+                text-align: right;
+                font-size: 1.7rem;
+                color: #ffffff;
+                font-weight: bold;
+                cursor: pointer;
+                margin-bottom: 35px;
+            }
+
+            .item-menu {
+                display: block;
+                width: 100%;
+                font-size: 1.3rem;
+                font-weight: 500;
+                margin: 12px 0;
+                padding: 15px 20px;
+                text-decoration: none;
+                color: #ffffff;
+                background-color: #051a48;
+                border-radius: 12px;
+                border: none;
+                transition: all 0.25s ease;
+                box-shadow: 0 1.5px 4px rgba(0,0,0,0.25);
+                text-align: left;
+                cursor: pointer;
+            }
+
+            .item-menu:hover {
+                background-color: #001540;
+                color: #39ff14;
+                transform: translateX(4px);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.35);
+            }
+
+            /* 🎬 ANIMAÇÕES */
+            @keyframes rodaLetreiro {
+                0%   { transform: translateX(50vw); }
+                100% { transform: translateX(-50%); }
+            }
+
+            @keyframes piscar {
+                0%   { opacity: 0.6; }
+                100% { opacity: 1; }
+            }
+
+            /* 📝 CONTEÚDO DOS TRABALHOS */
+            .conteudo-principal {
+                max-width: 100%; /* Alterado para largura total */
+                margin: 0 auto;
+                padding: 3rem 0; /* Removido o espaçamento lateral */
+                color: #ffffff;
+            }
+
+            .titulo-pagina {
+                font-size: clamp(2.3rem, 7.5vw, 3.2rem);
+                font-weight: 800;
+                text-align: center;
+                margin-bottom: 3rem;
+                color: #ffd700;
+                padding: 0 1.5rem; /* Adicionado espaçamento apenas no texto */
+            }
+
+            .bloco-trabalho {
+                background-color: #051a48;
+                border-radius: 0; /* Removida borda arredondada */
+                padding: 0; /* Removido preenchimento interno */
+                margin-bottom: 2.5rem;
+                box-shadow: none; /* Removida sombra */
+            }
+
+            .titulo-bloco {
+                font-size: clamp(1.8rem, 6vw, 2.4rem);
+                font-weight: 700;
+                margin-bottom: 1.2rem;
+                color: #39ff14;
+                padding: 1.5rem 1.5rem 0.5rem; /* Espaçamento apenas no título */
+            }
+
+            .texto-bloco {
+                font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+                line-height: 1.7;
+                opacity: 0.9;
+            }
+
+            .container-imagem {
+                width: 100%;
+                margin: 0; /* Removida margem */
+                border-radius: 0; /* Removida borda arredondada */
+                overflow: hidden;
+                box-shadow: none; /* Removida sombra */
+            }
+
+            .imagem {
+                width: 100%;
+                height: auto;
+                min-height: 300px; /* Altura mínima para ficar bom em telas grandes */
+                object-fit: cover; /* Ajusta imagem sem distorcer */
+                display: block;
+            }
+
+            .destaque {
+                color: #ff9900;
+            }
+
+            .subtitulo-topo {
+                font-size: 1.2rem;
+                text-align: center;
+                margin-bottom: 3rem;
+                opacity: 0.9;
+                padding: 0 1.5rem; /* Espaçamento apenas no texto */
+            }
+
+            .texto-explicativo {
+                font-size: 1.15rem;
+                line-height: 1.7;
+                margin-bottom: 1rem;
+                opacity: 0.92;
+                padding: 0 1.5rem; /* Espaçamento apenas no texto */
+            }
+
+            .frase-destaque {
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: #39ff14;
+                margin-bottom: 1.5rem;
+                padding: 0 1.5rem; /* Espaçamento apenas no texto */
+            }
+
+            .italic {
+                font-style: italic;
+            }
+
+            .fundo-bloco {
+                background-color: #051a48;
+                border-radius: 0;
+                padding: 2rem 1.5rem;
+                margin: 2rem 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🚩 LETREIRO -->
+    <div class="faixa-letreiro">
+        <div class="texto-wrapper">
+            <span class="texto-letreiro">
+                <span class="seta-verde">&gt;&gt;&gt;</span>
+                <span class="seta-vermelha">&gt;&gt;&gt;</span>
+                Especializado em Construção, Reformas e Instalações. Atendimento direto com William — WhatsApp: 31990721928 | Qualidade e Garantia em Cada Serviço!
+            </span>
+        </div>
+    </div>
+
+    <!-- 🧩 CABEÇALHO -->
+    <div class="cabecalho">
+        <h1 class="logo">
+            <span class="letra-a">A</span><span class="letra-w">W</span>
+            <span class="resto"> Construções</span>
+        </h1>
+        <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
+    </div>
+
+    <!-- 👇 ÁREA PRINCIPAL -->
+    <div class="conteudo-principal">
+        <div class="conteudo">
+
+            <!-- 🔹 Cabeçalho -->
+            <div>
+                <h1 class="titulo-pagina">
+                    Nossos <span class="destaque">Trabalhos</span><br>
+                    <span class="destaque">que Falam por Nós</span>
+                </h1>
+                <p class="subtitulo-topo">
+                    Qualidade, capricho e excelência em cada serviço executado.
+                </p>
+            </div>
+
+            <!-- 🔹 Bloco 1: Fundação -->
+            <div class="bloco-trabalho">
+                <h2 class="titulo-bloco">Fundação e Estrutura Resistente</h2>
+                <p class="texto-explicativo">
+                    A base de tudo é feita com materiais de primeira linha e cálculos corretos. Garantimos segurança para toda a vida útil da obra, sem surpresas.
+                </p>
+                <p class="frase-destaque">
+                    ✅ Resistência • ✅ Durabilidade • ✅ Segurança
+                </p>
+                <div class="container-imagem">
+                    <img src="https://i.postimg.cc/wvQ54QNh/IMG-20260506-193328.webp" alt="Fundação e estrutura" class="imagem">
+                </div>
+            </div>
+
+            <!-- 🔹 Bloco 2: Acabamento Impecável -->
+            <div class="bloco-trabalho">
+                <h2 class="titulo-bloco">Acabamento Impecável</h2>
+                <p class="texto-explicativo">
+                    Cada detalhe pensado e executado com precisão. O acabamento valoriza, embeleza e protege o seu imóvel, com visual profissional e duradouro.
+                </p>
+                <p class="frase-destaque italic">
+                    Quem realmente entende faz tudo perfeito e duradouro – já na primeira vez!
+                </p>
+                <div class="container-imagem">
+                    <img src="https://i.postimg.cc/VLrrdFNT/IMG-20260506-195502.webp" alt="Acabamento impecável" class="imagem">
+                </div>
+            </div>
+
+            <!-- 🔹 Bloco 3: Muro de Contenção -->
+            <div class="bloco-trabalho">
+                <h2 class="titulo-bloco">Muro de Contenção:<br>Segurança em Primeiro Lugar</h2>
+                <p class="texto-explicativo">
+                    Estruturas calculadas para suportar peso e tempo. Garante estabilidade ao terreno, evita deslizamentos e traz total tranquilidade.
+                </p>
+                <p class="frase-destaque">
+                    ✅ Segurança absoluta • ✅ Execução perfeita
+                </p>
+                <div class="container-imagem">
+                    <img src="https://i.postimg.cc/XJSxzvzd/IMG-20260506-195401.webp" alt="Muro de contenção seguro" class="imagem">
+                </div>
+            </div>
+
+            <!-- 🔹 Bloco 4: Muro de Sítio / Condomínio -->
+            <div class="bloco-trabalho">
+                <h2 class="titulo-bloco">Muro de Sítio em Condomínio</h2>
+                <p class="texto-explicativo">
+                    Robusto e elegante, protege e delimita sua propriedade com resistência e beleza, valorizando seu espaço rural.
+                </p>
+                <p class="frase-destaque italic">
+                    Mais que divisão: segurança e solidez para o seu patrimônio!
+                </p>
+                <div class="container-imagem">
+                    <img src="https://i.postimg.cc/P5nxNs9z/IMG-20260506-195330.webp" alt="Muro de sítio e condomínio" class="imagem">
+                </div>
+            </div>
+
+            <!-- 🔹 Bloco 5: Muro de Arrimo / Garagem -->
+            <div class="bloco-trabalho">
+                <h2 class="titulo-bloco">Muro de Arrimo e Alicerce para Garagem</h2>
+                <p class="texto-explicativo">
+                    Suporte do terreno e base sólida para garagem. Totalmente calculado para suportar cargas e oferecer total estabilidade.
+                </p>
+                <p class="frase-destaque">
+                    Base perfeita para construir com confiança!
+                </p>
+                <div class="container-imagem">
+                    <img src="https://i.postimg.cc/NF2x7JTz/IMG-20260507-002017.jpg" alt="Alicerce e estrutura sólida" class="imagem">
+                </div>
+            </div>
+
+            <!-- 🔹 Bloco 6: Estrutura Sólida -->
+            <div class="fundo-bloco">
+                <h2 class="titulo-bloco">Estrutura Sólida que Não Deixa a Desejar</h2>
+                <p class="texto-explicativo">
+                    Da fundação ao acabamento, tudo feito com técnica e dedicação. Seu patrimônio protegido e construído para durar.
+                </p>
+                <p class="frase-destaque">
+                    Uma base forte é o primeiro passo para o seu sonho durar para sempre!
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 📋 MENU LATERAL 100% FUNCIONAL -->
+    <div id="menuLateral" class="menu-lateral">
+        <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
+        <div class="item-menu" onclick="irPara('inicial.html')">Início</div>
+        <div class="item-menu" onclick="irPara('nosso-trabalho.html')">Nossos Trabalhos</div>
+        <div class="item-menu" onclick="irPara('servicos.html')">Serviços</div>
+        <div class="item-menu" onclick="irPara('avaliacoes.html')">Avaliações</div>
+<div class="item-menu" onclick="irPara('contato.html')">Contato</div>
+    </div>
+
+<!-- ⚠️ SÓ A FUNÇÃO DE APOIO SIMPLES - A INTELIGÊNCIA PRINCIPAL FICA NO inicial.html -->
+<script>
+// Funções de funcionamento do menu e navegação
+function abrirMenu() {
+    document.getElementById('menuLateral').classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+}
+
+function fecharMenu() {
+    document.getElementById('menuLateral').classList.remove('aberto');
+    document.body.style.overflow = 'auto';
+}
+
+function irPara(pagina) {
+    fecharMenu();
+    setTimeout(() => {
+        window.location.href = pagina;
+    }, 100);
+}
+</script>
+
+</body>
+</html>

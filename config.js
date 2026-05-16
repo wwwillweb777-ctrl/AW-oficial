@@ -1,0 +1,1 @@
+window.MINHA_CHAVE = "AIzaSyDUgHEX610xqLmEmM6F_d0sOzbYxLLxT8w";

@@ -2,15 +2,29 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AW Construções</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
         @layer utilities {
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { background-color: #0a2463; font-family: sans-serif; overflow-x: hidden; }
+            * { 
+                margin: 0; 
+                padding: 0; 
+                box-sizing: border-box; 
+                -webkit-overflow-scrolling: none;
+                overscroll-behavior: none;
+                touch-action: none;
+            }
+            body { 
+                background-color: #0a2463; 
+                font-family: sans-serif; 
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+            }
 
-            /* 🚩 LETREIRO ANIMADO */
+            /* 🚩 LETREIRO ANIMADO - TUDO IGUAL */
             .faixa-letreiro {
                 background-color: #0a2463;
                 overflow: hidden;
@@ -53,7 +67,7 @@
                 animation: piscar 0.8s ease-in-out infinite alternate;
             }
 
-            /* 🧭 CABEÇALHO */
+            /* 🧭 CABEÇALHO - TUDO IGUAL */
             .cabecalho {
                 background-color: #0a2463;
                 width: 100%;
@@ -65,6 +79,58 @@
                 top: 0;
                 z-index: 9999;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                transform: translateZ(0);
+            }
+
+            /* 📍 FRASE - POSIÇÃO E CORES EXATAS */
+            .texto-clique-aqui {
+                position: absolute;
+                right: 22%; 
+                top: -2%;    
+                font-size: 1.1rem;
+                font-weight: bold;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .palavra-clique {
+                animation: piscarVerde 0.7s ease-in-out infinite alternate;
+                display: inline-block;
+            }
+
+            .palavra-aqui {
+                animation: piscarVermelho 0.7s ease-in-out infinite alternate;
+                display: inline-block;
+            }
+
+            /* ✅ DEDO: VOLTEI AO MOVIMENTO ORIGINAL DE SUBIR E DESCER, EXATO COMO ERA ✅ */
+            .dedinho {
+                position: absolute;
+                right: 12%; 
+                top: -17%; 
+                font-size: 1.8rem;
+                transform: rotate(150deg); 
+                animation: movimentoDedo 0.6s infinite alternate ease-in-out; /* ✅ ANIMAÇÃO ORIGINAL DE VOLTA */
+                transform-origin: center;
+                line-height: 1;
+                pointer-events: none;
+            }
+
+            /* 🎬 ANIMAÇÕES DAS CORES - IGUAL */
+            @keyframes piscarVerde {
+                0%   { color: #208000; }
+                100% { color: #39ff14; }
+            }
+
+            @keyframes piscarVermelho {
+                0%   { color: #ff8888; }
+                100% { color: #ff0000; }
+            }
+
+            /* ✅ ANIMAÇÃO DO DEDO: ORIGINAL, SUBINDO E DESCENDO ✅ */
+            @keyframes movimentoDedo {
+                0%   { transform: rotate(150deg) translateY(0); }
+                100% { transform: rotate(150deg) translateY(-40%); }
             }
 
             .logo {
@@ -73,24 +139,25 @@
                 display: flex;
                 align-items: baseline;
                 gap: 6px;
+                line-height: 1;
             }
-
             .logo .letra-a { color: #39ff14; }
             .logo .letra-w { color: #ff9900; }
             .logo .resto { color: #ffffff; font-weight: 500; }
 
             .botao-menu {
+                position: absolute;
+                right: 20px;
+                top: 18px;
                 background: transparent;
                 border: none;
                 font-size: 1.9rem;
                 cursor: pointer;
                 color: #39ff14;
-                transition: opacity 0.2s ease;
+                line-height: 1;
             }
 
-            .botao-menu:hover { opacity: 0.85; }
-
-            /* 📋 MENU LATERAL */
+            /* 📋 MENU LATERAL - IGUAL */
             .menu-lateral {
                 position: fixed;
                 top: 0;
@@ -105,7 +172,6 @@
                 flex-direction: column;
                 padding: 25px 20px;
             }
-
             .menu-lateral.aberto { left: 0; }
 
             .fechar-menu {
@@ -115,6 +181,7 @@
                 font-weight: bold;
                 cursor: pointer;
                 margin-bottom: 35px;
+                line-height: 1;
             }
 
             .item-menu {
@@ -134,7 +201,6 @@
                 text-align: left;
                 cursor: pointer;
             }
-
             .item-menu:hover {
                 background-color: #001540;
                 color: #39ff14;
@@ -142,56 +208,49 @@
                 box-shadow: 0 2px 5px rgba(0,0,0,0.35);
             }
 
-            /* 🎬 ANIMAÇÕES */
             @keyframes rodaLetreiro {
                 0%   { transform: translateX(50vw); }
                 100% { transform: translateX(-50%); }
             }
-
             @keyframes piscar {
                 0%   { opacity: 0.6; }
                 100% { opacity: 1; }
             }
 
-            /* 🦁 CONTEÚDO PRÓPRIO */
+            /* 🦁 CONTEÚDO - TELA TRAVADA, NÃO ROLA MAIS */
             .conteudo {
-                flex: 1;
                 display: flex;
                 flex-direction: column;
                 background-color: #0a2463;
+                transform: translateZ(0);
+                height: calc(100vh - 120px);
+                overflow: hidden;
             }
 
             .leao-corpo {
                 width: 100%;
-                height: 40vh;
-                object-fit: cover;
+                height: auto;
                 display: block;
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+                max-width: 100%;
             }
 
             .texto-inferior {
-                flex: 1;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: center;
                 text-align: center;
-                padding: 20px 20px 40px 20px;
+                padding: 0px 20px 40px 20px;
                 gap: 25px;
                 background-color: #0a2463;
                 width: 100%;
                 box-sizing: border-box;
+                margin-top: 0 !important;
             }
 
-            .titulo-inferior {
-                font-size: clamp(2.3rem, 8.2vw, 3.4rem);
-                font-weight: bold;
-                margin: 0;
-                line-height: 1.1;
-                width: 90%;
-            }
-            .titulo-inferior .letra-a { color: #39ff14; }
-            .titulo-inferior .letra-w { color: #ff9900; }
-            .titulo-inferior .resto { color: #ffffff; }
+            .titulo-inferior { display: none !important; }
 
             .subtitulo-inferior {
                 color: #e2e4ec;
@@ -200,6 +259,9 @@
                 margin: 0;
                 line-height: 1.3;
                 width: 90%;
+                display: block !important;
+                visibility: visible !important;
+                height: auto !important;
             }
 
             .texto-informativo {
@@ -210,9 +272,12 @@
                 line-height: 1.55;
                 width: 90%;
                 opacity: 0.95;
+                display: block !important;
+                visibility: visible !important;
+                height: auto !important;
             }
 
-            /* 📊 BLOCO DE VISUALIZAÇÕES */
+            /* 📊 BLOCO DE VISUALIZAÇÕES - IGUAL */
             .youtube-bloco {
                 display: flex !important;
                 visibility: visible !important;
@@ -241,7 +306,6 @@
                 align-items: baseline;
                 gap: 6px;
             }
-
             .texto-visualizacoes {
                 font-size: clamp(0.69rem, 2.1vw, 0.84rem);
                 opacity: 0.9;
@@ -254,7 +318,6 @@
                 font-size: clamp(1.2rem, 4vw, 1.5rem);
                 margin-top: 6px;
             }
-
             .acao {
                 display: flex;
                 align-items: center;
@@ -284,7 +347,6 @@
                 border-radius: 2px;
                 overflow: hidden;
             }
-
             .barra-azul {
                 height: 100%;
                 width: 0%;
@@ -313,18 +375,25 @@
         </div>
     </div>
 
-    <!-- 🧩 CABEÇALHO -->
+    <!-- 🧩 CABEÇALHO - TUDO NO SEU LUGAR -->
     <div class="cabecalho">
         <h1 class="logo">
             <span class="letra-a">A</span><span class="letra-w">W</span>
             <span class="resto"> Construções</span>
         </h1>
+
+        <span class="texto-clique-aqui">
+            <span class="palavra-clique">Clique</span> <span class="palavra-aqui">aqui</span>
+        </span>
+        <!-- ✅ DEDO COM MOVIMENTO ORIGINAL DE VOLTA ✅ -->
+        <span class="dedinho">👆</span>
+
         <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- 🦁 CONTEÚDO -->
+    <!-- 🦁 CONTEÚDO - TELA TRAVADA, NÃO SOBE NEM DESCE -->
     <div class="conteudo">
-        <img src="https://i.postimg.cc/Hk43Jhk1/70232144-majestoso-masculino-leao-em-repouso-dentro-africano-savana-pastagem-com-acacia-arvore-e-mon.webp" alt="Leão Majestoso" class="leao-corpo">
+        <img src="https://raw.githubusercontent.com/wwwillweb777-ctrl/AW-oficial/main/Logo_da_AW_20260527_065239%20(1).webp" alt="Logo AW Construções" class="leao-corpo">
 
         <div class="texto-inferior">
             <h2 class="titulo-inferior">
@@ -365,7 +434,7 @@
         </div>
     </div>
 
-    <!-- 📋 MENU LATERAL - SEM DUPLICAÇÕES E LINKS CORRETOS -->
+    <!-- 📋 MENU LATERAL -->
     <div id="menuLateral" class="menu-lateral">
         <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('index.html')">Início</a>
@@ -373,49 +442,38 @@
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('servicos.html')">Serviços</a>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('avaliacoes.html')">Avaliações</a>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('contato.html')">Contato</a>
-</div>
+    </div>
 
-<!-- ⚡ FUNÇÕES DO MENU E NAVEGAÇÃO CORRIGIDAS E COMPLETAS -->
+<!-- ⚡ FUNÇÕES -->
 <script>
-// Abre o menu lateral
 function abrirMenu() {
     const menu = document.getElementById('menuLateral');
     menu.classList.add('aberto');
     document.body.style.overflow = 'hidden';
-    document.body.style.pointerEvents = 'auto';
 }
 
-// Fecha o menu lateral
 function fecharMenu() {
     const menu = document.getElementById('menuLateral');
     menu.classList.remove('aberto');
-    document.body.style.overflow = 'auto';
-    document.body.style.pointerEvents = 'auto';
+    document.body.style.overflow = 'hidden';
 }
 
-// Função de navegação FORÇADA - garante que encontra TODOS os arquivos na mesma pasta
 function irPara(pagina) {
-    // Fecha o menu antes de trocar a página
     fecharMenu();
-    // Pequeno delay para garantir que fechou completamente
     setTimeout(function() {
-        // Monta o caminho exato da pasta atual para não ter erro de localização
         const pastaAtual = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        const enderecoCompleto = pastaAtual + pagina;
-        // Dupla confirmação para carregar a página
-        window.location.href = enderecoCompleto;
-        window.location.assign(enderecoCompleto);
+        window.location.href = pastaAtual + pagina;
     }, 100);
 }
 </script>
 
-<!-- 🔥 CÓDIGO DO FIREBASE - ISOLADO, SEM CONFLITOS -->
+<!-- 🔥 FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, get, set, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: window.MINHA_CHAVE, // <- Essa linha puxa a chave do outro arquivo
+  apiKey: window.MINHA_CHAVE,
   authDomain: "willobras.firebaseapp.com",
   databaseURL: "https://willobras-default-rtdb.firebaseio.com",
   projectId: "willobras",
@@ -430,7 +488,6 @@ const db = getDatabase(app);
 const estatisticasRef = ref(db, "estatisticas");
 const visitantesRef = ref(db, "visitantes");
 
-// Gera um código único para cada visitante
 function obterCodigoVisitante() {
     let codigo = sessionStorage.getItem("codigoVisitante");
     if (!codigo) {
@@ -441,7 +498,6 @@ function obterCodigoVisitante() {
 }
 const codigoUnico = obterCodigoVisitante();
 
-// Formata números para visualização (ex: 1200 vira 1.2K)
 function formatarNumero(numero) {
     numero = Number(numero) || 0;
     if (numero >= 1000000) return (numero / 1000000).toFixed(1).replace('.0', '') + 'M';
@@ -449,7 +505,6 @@ function formatarNumero(numero) {
     return numero.toString();
 }
 
-// Atualiza todos os valores na tela
 function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const v = dados.visitas || 0;
     const c = dados.curtidas || 0;
@@ -481,7 +536,6 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     }
 }
 
-// Verifica se o usuário já votou
 const verificarSeJaVotou = async () => {
     try {
         const snap = await get(ref(db, `visitantes/${codigoUnico}`));
@@ -502,7 +556,6 @@ const verificarSeJaVotou = async () => {
     }
 };
 
-// Registra a visita do usuário
 const registrarAcesso = async () => {
     try {
         const snap = await get(ref(db, `visitantes/${codigoUnico}`));
@@ -520,7 +573,6 @@ const registrarAcesso = async () => {
     }
 };
 
-// Atualiza dados em tempo real do Firebase
 onValue(estatisticasRef, (snap) => {
     const dados = snap.val();
     atualizarTela(dados || { visitas: 0, curtidas: 0, naoCurtidas: 0 });
@@ -528,7 +580,6 @@ onValue(estatisticasRef, (snap) => {
     console.log("Erro no Firebase:", erro);
 });
 
-// Ação ao clicar em Curtir
 document.addEventListener("click", async (e) => {
     if (e.target.closest("#btnCurtir")) {
         const btn = document.getElementById("btnCurtir");
@@ -549,7 +600,6 @@ document.addEventListener("click", async (e) => {
         }
     }
 
-    // Ação ao clicar em Não Curtir
     if (e.target.closest("#btnNaoCurtir")) {
         const btn = document.getElementById("btnNaoCurtir");
         if (btn && !btn.classList.contains("desativado")) {
@@ -570,11 +620,9 @@ document.addEventListener("click", async (e) => {
     }
 });
 
-// Atualiza dados ao voltar para a aba
 window.addEventListener('pageshow', () => atualizarTela());
 window.addEventListener('focus', () => atualizarTela());
 
-// Inicializa tudo quando a página carrega
 document.addEventListener('DOMContentLoaded', () => {
     atualizarTela({ visitas: 0, curtidas: 0, naoCurtidas: 0 });
     registrarAcesso();

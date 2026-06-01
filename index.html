@@ -421,7 +421,7 @@
 
                     <div id="btnNaoCurtir" class="acao">
                         <svg viewBox="0 0 24 24">
-                            <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09-.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 12h4V9h-4v6z"/>
+                            <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09-.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41-.17-.79-.44-1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 12h4V9h-4v6z"/>
                         </svg>
                         <span id="naoCurtidas">0</span>
                     </div>
@@ -520,7 +520,8 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     if (elViews) elViews.textContent = formatarNumero(v);
     if (elTextoViews) elTextoViews.textContent = "visualizações";
     if (elCurtidas) elCurtidas.textContent = formatarNumero(c);
-    if (elNaoCurtidas) elNaoCurtidas.textContent = formatarNumero(n);
+    // ✅ AQUI É A MUDANÇA: SEMPRE MOSTRA 0, MESMO QUE TENHA VALOR NO BANCO
+    if (elNaoCurtidas) elNaoCurtidas.textContent = "0";
 
     const total = c + n;
     const porcentagem = total > 0 ? (c / total) * 100 : 0;

@@ -155,9 +155,9 @@
 
             /* 📝 CONTEÚDO DOS TRABALHOS */
             .conteudo-principal {
-                max-width: 100%; /* Alterado para largura total */
+                max-width: 100%;
                 margin: 0 auto;
-                padding: 3rem 0; /* Removido o espaçamento lateral */
+                padding: 3rem 0;
                 color: #ffffff;
             }
 
@@ -167,15 +167,15 @@
                 text-align: center;
                 margin-bottom: 3rem;
                 color: #ffd700;
-                padding: 0 1.5rem; /* Adicionado espaçamento apenas no texto */
+                padding: 0 1.5rem;
             }
 
             .bloco-trabalho {
                 background-color: #051a48;
-                border-radius: 0; /* Removida borda arredondada */
-                padding: 0; /* Removido preenchimento interno */
+                border-radius: 0;
+                padding: 0;
                 margin-bottom: 2.5rem;
-                box-shadow: none; /* Removida sombra */
+                box-shadow: none;
             }
 
             .titulo-bloco {
@@ -183,28 +183,42 @@
                 font-weight: 700;
                 margin-bottom: 1.2rem;
                 color: #39ff14;
-                padding: 1.5rem 1.5rem 0.5rem; /* Espaçamento apenas no título */
+                padding: 1.5rem 1.5rem 0.5rem;
             }
 
-            .texto-bloco {
+            .texto-explicativo {
                 font-size: clamp(1.1rem, 3.5vw, 1.4rem);
                 line-height: 1.7;
-                opacity: 0.9;
+                margin-bottom: 1rem;
+                opacity: 0.92;
+                padding: 0 1.5rem;
+            }
+
+            .frase-destaque {
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: #39ff14;
+                margin-bottom: 1.5rem;
+                padding: 0 1.5rem;
+            }
+
+            .italic {
+                font-style: italic;
             }
 
             .container-imagem {
                 width: 100%;
-                margin: 0; /* Removida margem */
-                border-radius: 0; /* Removida borda arredondada */
+                margin: 0;
+                border-radius: 0;
                 overflow: hidden;
-                box-shadow: none; /* Removida sombra */
+                box-shadow: none;
             }
 
             .imagem {
                 width: 100%;
                 height: auto;
-                min-height: 300px; /* Altura mínima para ficar bom em telas grandes */
-                object-fit: cover; /* Ajusta imagem sem distorcer */
+                min-height: 300px;
+                object-fit: cover;
                 display: block;
             }
 
@@ -217,27 +231,7 @@
                 text-align: center;
                 margin-bottom: 3rem;
                 opacity: 0.9;
-                padding: 0 1.5rem; /* Espaçamento apenas no texto */
-            }
-
-            .texto-explicativo {
-                font-size: 1.15rem;
-                line-height: 1.7;
-                margin-bottom: 1rem;
-                opacity: 0.92;
-                padding: 0 1.5rem; /* Espaçamento apenas no texto */
-            }
-
-            .frase-destaque {
-                font-size: 1.1rem;
-                font-weight: 500;
-                color: #39ff14;
-                margin-bottom: 1.5rem;
-                padding: 0 1.5rem; /* Espaçamento apenas no texto */
-            }
-
-            .italic {
-                font-style: italic;
+                padding: 0 1.5rem;
             }
 
             .fundo-bloco {
@@ -305,10 +299,10 @@
             <div class="bloco-trabalho">
                 <h2 class="titulo-bloco">Acabamento Impecável</h2>
                 <p class="texto-explicativo">
-                    Cada detalhe pensado e executado com precisão. O acabamento valoriza, embeleza and protege o seu imóvel, com visual profissional e duradouro.
+                    Cada detalhe pensado e executado com precisão. O acabamento valoriza, embeleza e protege o seu imóvel, com visual profissional e duradouro.
                 </p>
                 <p class="frase-destaque italic">
-                    Quem realmente entende faz tudo perfeito e duradouro – já na primeira vez!
+                    Quem realmente entende faz tudo perfeito e duradouro — já na primeira vez!
                 </p>
                 <div class="container-imagem">
                     <img src="https://i.postimg.cc/VLrrdFNT/IMG-20260506-195502.webp" alt="Acabamento impecável" class="imagem">
@@ -357,9 +351,9 @@
                 </div>
             </div>
 
-            <!-- 🔹 Bloco 6: Hospital das Clínicas BH -->
+            <!-- 🔹 Bloco 6: Hospital das Clínicas - BH -->
             <div class="bloco-trabalho">
-                <h2 class="titulo-bloco">Hospital das Clínicas - BH</h2>
+                <h2 class="titulo-bloco">Hospital das Clínicas — BH</h2>
                 <p class="texto-explicativo">
                     Obra de grande porte executada com técnica e responsabilidade. Atendemos normas rigorosas, garantindo estrutura segura, funcional e duradoura para o setor de saúde.
                 </p>
@@ -399,7 +393,21 @@
                 </div>
             </div>
 
-            <!-- 🔹 Bloco 9: Estrutura Sólida -->
+            <!-- 🔹 Bloco 9: Bancada de Banheiro — Granja Ouro Branco / Contagem -->
+            <div class="bloco-trabalho">
+                <h2 class="titulo-bloco">Bancada de Banheiro — Granja Ouro Branco / Contagem</h2>
+                <p class="texto-explicativo">
+                    Bancada executada com capricho e acabamento de qualidade no bairro Granja Ouro Branco, em Contagem. Projeto feito sob medida, com atenção a cada detalhe para deixar o ambiente bonito, funcional e valorizado.
+                </p>
+                <p class="frase-destaque italic">
+                    Mais beleza e praticidade para o seu banheiro, com acabamento impecável!
+                </p>
+                <div class="container-imagem">
+                    <img src="https://i.postimg.cc/BQ9f2sXb/SAVE-20260804-220128.webp" alt="Bancada de banheiro — Granja Ouro Branco, Contagem" class="imagem">
+                </div>
+            </div>
+
+            <!-- 🔹 Bloco 10: Estrutura Sólida -->
             <div class="fundo-bloco">
                 <h2 class="titulo-bloco">Estrutura Sólida que Não Deixa a Desejar</h2>
                 <p class="texto-explicativo">
@@ -413,7 +421,7 @@
         </div>
     </div>
 
-    <!-- 📋 MENU LATERAL 100% FUNCIONAL -->
+    <!-- 📋 MENU LATERAL -->
     <div id="menuLateral" class="menu-lateral">
         <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
         <div class="item-menu" onclick="irPara('index.html')">Início</div>
@@ -423,9 +431,8 @@
         <div class="item-menu" onclick="irPara('contato.html')">Contato</div>
     </div>
 
-<!-- ⚠️ SÓ A FUNÇÃO DE APOIO SIMPLES - A INTELIGÊNCIA PRINCIPAL FICA NO index.html -->
+<!-- ⚠️ FUNÇÕES DE NAVEGAÇÃO -->
 <script>
-// Funções de funcionamento do menu e navegação
 function abrirMenu() {
     document.getElementById('menuLateral').classList.add('aberto');
     document.body.style.overflow = 'hidden';

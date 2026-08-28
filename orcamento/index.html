@@ -10,51 +10,62 @@
         .pagina { max-width: 450px; margin: 0 auto; background: #002f6c; padding: 20px; border-radius: 20px; border-top: 4px solid #D4AF37; color: #fff; }
         .oculta { display: none !important; }
         
-        /* ⬅️ BOTÃO VOLTAR — COM TEXTO E SETA */
-        .btn-voltar-site {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background: #d32f2f;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 18px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s ease;
-        }
-        .btn-voltar-site:hover {
-            background: #b71c1c;
-            transform: scale(1.05);
-        }
-
-        .cabecalho { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; margin-top: 60px; }
+        .cabecalho { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
         .leao-cabeca { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #D4AF37; }
         .info-contato p { font-size: 18px; font-weight: bold; color: #ffffff; margin-bottom: 8px; }
-        h1 { font-size: 26px; color: #ffffff; text-align: center; margin: 15px 0; }
-        .info-inicial { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px; color: #ffffff; }
-        .info-inicial strong { color: #D4AF37; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 20px; font-weight: bold; color: #ffffff; cursor: pointer; margin-bottom: 10px; }
-        .btn-comecar { background: #25d366; font-size: 22px; }
-        .btn-servico { background: #0047ab; text-align: left; border: 1px solid #D4AF37; font-size: 17px; }
-        .btn-voltar { background: #d32f2f; }
+        
+        h1 { font-size: 28px; color: #ffffff; text-align: center; margin-bottom: 25px; line-height: 1.3; }
+        
+        .info-inicial { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin-bottom: 30px; 
+            color: #ffffff; 
+        }
+        .info-inicial p { margin-bottom: 8px; font-size: 17px; }
+        .info-inicial strong { color: #D4AF37; font-size: 19px; }
+        
+        /* ✅ BOTÕES — MESMO TAMANHO, MESMO ESTILO */
+        .btn { 
+            width: 100%; 
+            padding: 18px; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #ffffff; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+        }
+        .btn:hover { transform: scale(1.02); }
+        
+        /* ✅ BOTÃO ENTRAR — VERDE */
+        .btn-entrar { 
+            background: #25d366; 
+            margin-bottom: 15px; 
+        }
+        
+        /* ✅ BOTÃO VOLTAR — VERMELHO, ABAIXO DO ENTRAR */
+        .btn-voltar { 
+            background: #d32f2f; 
+            font-size: 22px;
+        }
+
+        /* Estilo da página de serviços */
+        .btn-servico { 
+            background: #0047ab; 
+            text-align: left; 
+            border: 1px solid #D4AF37; 
+            font-size: 17px; 
+            padding: 15px 20px; 
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ⬅️ BOTÃO DE VOLTAR — COM A PALAVRA E A SETA -->
-    <button class="btn-voltar-site" onclick="voltarParaMenu()">
-        ← Voltar
-    </button>
-
-    <!-- PÁGINA PRINCIPAL DO ORÇAMENTO -->
+    <!-- PÁGINA PRINCIPAL / TELA INICIAL -->
     <div id="pg-principal" class="pagina">
         <div class="cabecalho">
             <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca">
@@ -65,6 +76,7 @@
         </div>
 
         <h1>Vai construir? Obtenha seu orçamento por aqui.</h1>
+        
         <div class="info-inicial">
             <p><strong>📏 Medidas:</strong></p>
             <p>Área = Altura × Largura</p>
@@ -77,7 +89,12 @@
             <p>✅ CONCRETO: R$200,00/M³</p>
             <p>✅ GESSO: R$20,00/M²</p>
         </div>
-        <button class="btn btn-comecar" onclick="comecar()">Entrar</button>
+
+        <!-- ✅ BOTÃO ENTRAR -->
+        <button class="btn btn-entrar" onclick="comecar()">Entrar</button>
+        
+        <!-- ✅ BOTÃO VOLTAR — GRANDE, ABAIXO DO ENTRAR, VERMELHO -->
+        <button class="btn btn-voltar" onclick="voltarParaSite()">Voltar</button>
     </div>
 
     <!-- PÁGINA DE SERVIÇOS -->
@@ -95,21 +112,12 @@
     </div>
 
     <script>
-        // ⬅️ VOLTAR PARA O MENU — SALVA OS DADOS ANTES DE SAIR!
-        function voltarParaMenu() {
-            // ✅ SALVA OS DADOS DO ORÇAMENTO ANTES DE SAIR
-            localStorage.setItem('orcamentoCompleto', JSON.stringify({
-                salvoEm: new Date().toISOString()
-            }));
-            
-            // ✅ VOLTA PARA O SITE PRINCIPAL COM O MENU — SEM PERDER OS DADOS
-            // Usamos document.referrer para voltar para a página que abriu o orçamento
-            if (document.referrer && document.referrer.includes('web777-ctrl.github.io')) {
-                window.location.href = document.referrer;
-            } else {
-                // Fallback: volta para o index.html do site principal
-                window.location.href = '../index.html?menu=aberto';
-            }
+        // ⬅️ VOLTAR PARA O SITE PRINCIPAL (MENU)
+        function voltarParaSite() {
+            // Salva os dados antes de sair
+            localStorage.setItem('orcamentoCompleto', JSON.stringify({ salvoEm: new Date().toISOString() }));
+            // Volta para o site principal
+            window.location.href = '../index.html';
         }
 
         function mostrarPagina(idPagina) {

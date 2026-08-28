@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Geral - William Pedreiro</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f0f4f8; padding: 10px; }
+        .pagina { max-width: 450px; margin: 0 auto; background: #002f6c; padding: 20px; border-radius: 20px; border-top: 4px solid #D4AF37; color: #fff; }
+        h1 { font-size: 26px; color: #ffd700; text-align: center; margin-bottom: 20px; }
+        .item { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .nome { font-weight: bold; color: #ffd700; font-size: 18px; margin-bottom: 5px; }
+        .medida { font-size: 15px; color: #ddd; }
+        .valor { font-size: 16px; color: #0f0; font-weight: bold; margin-top: 5px; }
+        .total { margin-top: 25px; padding: 20px; border: 3px solid #0f0; border-radius: 12px; text-align: center; background: rgba(0,255,0,0.1); }
+        .texto-total { font-size: 20px; }
+        .valor-total { font-size: 32px; color: #0f0; font-weight: bold; margin-top: 10px; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; color: #fff; cursor: pointer; margin-top: 20px; }
+        .btn-voltar { background: #d32f2f; }
+        .vazio { text-align: center; padding: 40px 20px; color: #aaa; font-size: 16px; line-height: 1.8; }
+    </style>
+</head>
+<body>
+<div class="pagina">
+    <h1>📊 RESUMO GERAL</h1>
+    <div id="lista"></div>
+    <div class="total" id="caixa-total" style="display:none;">
+        <p class="texto-total">💵 VALOR TOTAL DO ORÇAMENTO</p>
+        <p class="valor-total" id="valor-total">R$ 0,00</p>
+    </div>
+    <button class="btn btn-voltar" onclick="window.history.back()">⬅️ VOLTAR</button>
+</div>
+
+<script>
+function carregarResumo() {
+    const lista = document.getElementById('lista');
+    const caixaTotal = document.getElementById('caixa-total');
+    const valorTotalEl = document.getElementById('valor-total');
+    
+    // ✅ LÊ EXATAMENTE ONDE OS OUTROS SALVAM
+    const dados = JSON.parse(localStorage.getItem('orcamentoCompleto') || '[]');
+    
+    if (dados.length === 0) {
+        lista.innerHTML = '<p class="vazio">Nenhum serviço salvo ainda.<br>Volte, calcule e clique em SALVAR.</p>';
+        return;
+    }
+
+    lista.innerHTML = '';
+    let soma = 0;
+
+    dados.forEach((servico, indice) => {
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.innerHTML = `
+            <p class="nome">${indice + 1}. ${servico.servico}</p>
+            <p class="medida">📏 ${servico.medida}</p>
+            <p class="valor">💰 ${servico.valor}</p>
+        `;
+        lista.appendChild(item);
+
+        // Converte o valor para somar
+        let numero = parseFloat(servico.valor.replace('R$ ', '').replace('.', '').replace(',', '.'));
+        soma += numero;
+    });
+
+    // Mostra o total
+    caixaTotal.style.display = 'block';
+    valorTotalEl.textContent = 'R$ ' + soma.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// ✅ CARREGA TUDO QUANDO A PÁGINA ABRE
+carregarResumo();
+</script>
+</body>
+</html>

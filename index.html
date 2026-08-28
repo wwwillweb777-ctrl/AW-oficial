@@ -24,7 +24,7 @@
                 height: 100%;
             }
 
-            /* 🚩 LETREIRO ANIMADO - TUDO IGUAL */
+            /* 🚩 LETREIRO ANIMADO */
             .faixa-letreiro {
                 background-color: #0a2463;
                 overflow: hidden;
@@ -67,7 +67,7 @@
                 animation: piscar 0.8s ease-in-out infinite alternate;
             }
 
-            /* 🧭 CABEÇALHO - TUDO IGUAL */
+            /* 🧭 CABEÇALHO */
             .cabecalho {
                 background-color: #0a2463;
                 width: 100%;
@@ -82,7 +82,7 @@
                 transform: translateZ(0);
             }
 
-            /* 📍 FRASE - POSIÇÃO E CORES EXATAS */
+            /* 📍 FRASE */
             .texto-clique-aqui {
                 position: absolute;
                 right: 22%; 
@@ -103,20 +103,20 @@
                 display: inline-block;
             }
 
-            /* ✅ DEDO: VOLTEI AO MOVIMENTO ORIGINAL DE SUBIR E DESCER, EXATO COMO ERA ✅ */
+            /* ✅ DEDO */
             .dedinho {
                 position: absolute;
                 right: 12%; 
                 top: -17%; 
                 font-size: 1.8rem;
                 transform: rotate(150deg); 
-                animation: movimentoDedo 0.6s infinite alternate ease-in-out; /* ✅ ANIMAÇÃO ORIGINAL DE VOLTA */
+                animation: movimentoDedo 0.6s infinite alternate ease-in-out;
                 transform-origin: center;
                 line-height: 1;
                 pointer-events: none;
             }
 
-            /* 🎬 ANIMAÇÕES DAS CORES - IGUAL */
+            /* 🎬 ANIMAÇÕES DAS CORES */
             @keyframes piscarVerde {
                 0%   { color: #208000; }
                 100% { color: #39ff14; }
@@ -127,7 +127,7 @@
                 100% { color: #ff0000; }
             }
 
-            /* ✅ ANIMAÇÃO DO DEDO: ORIGINAL, SUBINDO E DESCENDO ✅ */
+            /* ✅ ANIMAÇÃO DO DEDO */
             @keyframes movimentoDedo {
                 0%   { transform: rotate(150deg) translateY(0); }
                 100% { transform: rotate(150deg) translateY(-40%); }
@@ -157,7 +157,7 @@
                 line-height: 1;
             }
 
-            /* 📋 MENU LATERAL - IGUAL */
+            /* 📋 MENU LATERAL */
             .menu-lateral {
                 position: fixed;
                 top: 0;
@@ -208,6 +208,19 @@
                 box-shadow: 0 2px 5px rgba(0,0,0,0.35);
             }
 
+            /* 🟢 BOTÃO ORÇAMENTO ONLINE — DESTAQUE ESPECIAL */
+            .item-menu.orcamento {
+                background: linear-gradient(90deg, #006400, #228B22);
+                border: 2px solid #39ff14;
+                font-weight: bold;
+                font-size: 1.35rem;
+            }
+            .item-menu.orcamento:hover {
+                background: linear-gradient(90deg, #008000, #32CD32);
+                color: #ffffff;
+                transform: scale(1.02);
+            }
+
             @keyframes rodaLetreiro {
                 0%   { transform: translateX(50vw); }
                 100% { transform: translateX(-50%); }
@@ -217,7 +230,7 @@
                 100% { opacity: 1; }
             }
 
-            /* 🦁 CONTEÚDO - TELA TRAVADA, NÃO ROLA MAIS */
+            /* 🦁 CONTEÚDO */
             .conteudo {
                 display: flex;
                 flex-direction: column;
@@ -277,7 +290,7 @@
                 height: auto !important;
             }
 
-            /* 📊 BLOCO DE VISUALIZAÇÕES - IGUAL */
+            /* 📊 BLOCO DE VISUALIZAÇÕES */
             .youtube-bloco {
                 display: flex !important;
                 visibility: visible !important;
@@ -375,7 +388,7 @@
         </div>
     </div>
 
-    <!-- 🧩 CABEÇALHO - TUDO NO SEU LUGAR -->
+    <!-- 🧩 CABEÇALHO -->
     <div class="cabecalho">
         <h1 class="logo">
             <span class="letra-a">A</span><span class="letra-w">W</span>
@@ -385,13 +398,12 @@
         <span class="texto-clique-aqui">
             <span class="palavra-clique">Clique</span> <span class="palavra-aqui">aqui</span>
         </span>
-        <!-- ✅ DEDO COM MOVIMENTO ORIGINAL DE VOLTA ✅ -->
         <span class="dedinho">👆</span>
 
         <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- 🦁 CONTEÚDO - TELA TRAVADA, NÃO SOBE NEM DESCE -->
+    <!-- 🦁 CONTEÚDO -->
     <div class="conteudo">
         <img src="https://raw.githubusercontent.com/wwwillweb777-ctrl/AW-oficial/main/Logo_da_AW_20260527_065239%20(1).webp" alt="Logo AW Construções" class="leao-corpo">
 
@@ -434,14 +446,16 @@
         </div>
     </div>
 
-    <!-- 📋 MENU LATERAL -->
+    <!-- 📋 MENU LATERAL — ✅ BOTÃO ORÇAMENTO ONLINE ADICIONADO -->
     <div id="menuLateral" class="menu-lateral">
         <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
-        <a href="javascript:void(0)" class="item-menu" onclick="irPara('index.html')">Início</a>
-        <a href="javascript:void(0)" class="item-menu" onclick="irPara('nosso-trabalho.html')">Nossos Trabalhos</a>
-        <a href="javascript:void(0)" class="item-menu" onclick="irPara('servicos.html')">Serviços</a>
-        <a href="javascript:void(0)" class="item-menu" onclick="irPara('avaliacoes.html')">Avaliações</a>
-        <a href="javascript:void(0)" class="item-menu" onclick="irPara('contato.html')">Contato</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('index.html')">🏠 Início</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('nosso-trabalho.html')">📸 Nossos Trabalhos</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('servicos.html')">🔧 Serviços</a>
+        <!-- ✅ NOVO BOTÃO — ORÇAMENTO ONLINE -->
+        <a href="javascript:void(0)" class="item-menu orcamento" onclick="irPara('orcamento/')">🖥️ ORÇAMENTO ONLINE</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('avaliacoes.html')">⭐ Avaliações</a>
+        <a href="javascript:void(0)" class="item-menu" onclick="irPara('contato.html')">📞 Contato</a>
     </div>
 
 <!-- ⚡ FUNÇÕES -->
@@ -520,7 +534,6 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     if (elViews) elViews.textContent = formatarNumero(v);
     if (elTextoViews) elTextoViews.textContent = "visualizações";
     if (elCurtidas) elCurtidas.textContent = formatarNumero(c);
-    // ✅ AQUI É A MUDANÇA: SEMPRE MOSTRA 0, MESMO QUE TENHA VALOR NO BANCO
     if (elNaoCurtidas) elNaoCurtidas.textContent = "0";
 
     const total = c + n;

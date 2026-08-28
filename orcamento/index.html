@@ -22,21 +22,66 @@
             height: 100vh;
             max-width: 500px;
             background: #002f6c;
-            padding: 2vh 5vw 4vh 5vw; /* ✅ MENOS ESPAÇO EM CIMA, MAIS EM BAIXO */
+            padding: 2vh 5vw 4vh 5vw;
             display: flex;
             flex-direction: column;
-            justify-content: space-around; /* ✅ DISTRIBUI IGUAL TODOS OS ESPAÇOS */
             color: #fff; 
             overflow: hidden;
         }
         .oculta { display: none !important; }
         
-        /* ✅ CABEÇALHO — MENOS ESPAÇO ACIMA DO LEÃO */
+        /* ✅ TÍTULO */
+        h1 { 
+            font-size: 5.5vw; 
+            text-align: center; 
+            line-height: 1.25;
+            font-weight: 600;
+            margin: 3vh 0 4vh 0;
+        }
+        
+        /* ✅ ÁREA DOS BOTÕES — OCUPA O ESPAÇO, SEM VAZIO */
+        .area-botoes {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 2.5vw;
+            overflow-y: auto; /* ✅ ROLA SÓ SE PRECISAR */
+            padding-right: 1vw;
+        }
+        
+        /* ✅ BOTÕES DE SERVIÇO — MESMO ESTILO */
+        .btn-servico { 
+            background: #0047ab;
+            text-align: left; 
+            border: 2px solid #D4AF37; 
+            font-size: 4.2vw; 
+            padding: 3.5vw 4vw; 
+            border-radius: 14px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .btn-servico:active { transform: scale(0.98); }
+        
+        /* ✅ BOTÃO VOLTAR — JUNTO NA LISTA, ÚLTIMO, VERMELHO */
+        .btn-voltar { 
+            background: #d32f2f;
+            border: 2px solid #b71c1c;
+            text-align: center;
+            font-size: 5vw;
+            font-weight: 700;
+            margin-top: 3vh; /* ✅ UM POUCO DE ESPAÇO ANTES, PARA DESTACAR */
+        }
+
+        /* === TELA INICIAL (mantemos como já estava perfeito) === */
         .cabecalho { 
             display: flex; 
             align-items: center; 
             gap: 4vw; 
-            margin-top: 0; /* ✅ SEM MARGEM EXTRA EM CIMA */
+            margin-top: 2vh;
         }
         .leao-cabeca { 
             width: 18vw; 
@@ -57,23 +102,11 @@
             opacity: 0.9;
             font-weight: 500;
         }
-        
-        /* ✅ TÍTULO — COMPACTO, SEM EXAGERO */
-        h1 { 
-            font-size: 5.5vw; 
-            text-align: center; 
-            line-height: 1.25;
-            font-weight: 600;
-            margin: 0;
-        }
-        
-        /* ✅ CAIXA DE VALORES — AJUSTADA PARA CABER */
         .info-inicial { 
             background: rgba(255, 255, 255, 0.1); 
             padding: 3.5vw; 
             border-radius: 16px; 
-            flex-shrink: 1; /* ✅ ENCOLHE SE PRECISAR */
-            min-height: 0;
+            margin: 3vh 0;
         }
         .info-inicial p { 
             font-size: 4vw; 
@@ -85,14 +118,12 @@
             font-size: 4.3vw;
             font-weight: 600;
         }
-        
-        /* ✅ BOTÕES — GARANTIDO QUE APARECEM COMPLETOS */
-        .botoes {
-            margin-top: 2vh;
+        .botoes-iniciais {
             display: flex;
             flex-direction: column;
             gap: 3vw;
-            flex-shrink: 0; /* ✅ NÃO DEIXA OS BOTÕES SEREM CORTADOS */
+            margin-top: auto;
+            padding-bottom: 2vh;
         }
         .btn { 
             width: 100%; 
@@ -105,32 +136,16 @@
             cursor: pointer; 
             transition: all 0.2s ease;
         }
-        .btn:active { transform: scale(0.98); }
-        
-        .btn-entrar { 
-            background: #25d366;
-        }
-        .btn-voltar { 
-            background: #d32f2f;
-        }
-
-        /* Página de serviços */
-        .btn-servico { 
-            background: #0047ab;
-            text-align: left; 
-            border: 1px solid #D4AF37; 
-            font-size: 4vw; 
-            padding: 3.5vw; 
-            margin-bottom: 2.5vw;
-            border-radius: 12px;
-        }
+        .btn-entrar { background: #25d366; }
+        .btn-voltar-inicial { background: #d32f2f; }
     </style>
 </head>
 <body>
 
-    <!-- PÁGINA PRINCIPAL — TUDO APARECE COMPLETO -->
+    <!-- ====================================== -->
+    <!-- TELA INICIAL — JÁ ESTAVA PERFEITA -->
+    <!-- ====================================== -->
     <div id="pg-principal" class="pagina">
-        <!-- ✅ CABEÇALHO — SEM ESPAÇO SOBRANDO EM CIMA -->
         <div class="cabecalho">
             <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca">
             <div class="info-contato">
@@ -141,7 +156,6 @@
 
         <h1>Vai construir? Obtenha seu orçamento por aqui.</h1>
         
-        <!-- ✅ CAIXA DE VALORES — COMPACTA MAS COMPLETA -->
         <div class="info-inicial">
             <p><strong>📏 Medidas:</strong><br>
             Área = Altura × Largura</p>
@@ -155,28 +169,30 @@
             ✅ GESSO: R$20,00/M²</p>
         </div>
 
-        <!-- ✅ BOTÕES — APARECEM COMPLETOS, NÃO CORTAM MAIS! -->
-        <div class="botoes">
+        <div class="botoes-iniciais">
             <button class="btn btn-entrar" onclick="comecar()">Entrar</button>
-            <button class="btn btn-voltar" onclick="voltarParaSite()">Voltar</button>
+            <button class="btn btn-voltar-inicial" onclick="voltarParaSite()">Voltar</button>
         </div>
     </div>
 
-    <!-- PÁGINA DE SERVIÇOS -->
+    <!-- ====================================== -->
+    <!-- TELA DE SERVIÇOS — VOLTAR JUNTO NA LISTA! -->
+    <!-- ====================================== -->
     <div id="pg-servicos" class="pagina oculta">
         <h1>Qual serviço será feito?</h1>
-        <div style="flex: 1; overflow-y: auto; padding-right: 2vw;">
-            <button class="btn btn-servico" onclick="irPara('servicos/01-alvenaria.html')">1 - ALVENARIA (R$52,00/M²)</button>
-            <button class="btn btn-servico" onclick="irPara('servicos/02-reboco.html')">2 - REBOCO (R$25,00/M²)</button>
-            <button class="btn btn-servico" onclick="irPara('servicos/03-porcelanato.html')">3 - PORCELANATO (R$60,00/M²)</button>
-            <button class="btn btn-servico" onclick="irPara('servicos/04-ceramica.html')">4 - CERÂMICA (R$40,00/M²)</button>
-            <button class="btn btn-servico" onclick="irPara('servicos/05-concreto.html')">5 - CONCRETO (R$200,00/M³)</button>
-            <button class="btn btn-servico" onclick="irPara('servicos/06-calculadora.tijolos.html')">6 - 🧱 CALC. QUANTIDADE DE TIJOLOS</button>
-            <button class="btn btn-servico" onclick="irPara('servicos/07-gesso.html')">7 - ⬜ GESSO (R$20,00/M²)</button>
-            <button class="btn btn-servico" onclick="irPara('servicos/08-resumo-geral.html')">📊 8 - RESUMO GERAL / ORÇAMENTO FINAL</button>
-        </div>
-        <div class="botoes">
-            <button class="btn btn-voltar" onclick="voltarParaPrincipal()">VOLTAR</button>
+        
+        <div class="area-botoes">
+            <button class="btn-servico" onclick="irPara('servicos/01-alvenaria.html')">1 - ALVENARIA (R$52,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/02-reboco.html')">2 - REBOCO (R$25,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/03-porcelanato.html')">3 - PORCELANATO (R$60,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/04-ceramica.html')">4 - CERÂMICA (R$40,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/05-concreto.html')">5 - CONCRETO (R$200,00/M³)</button>
+            <button class="btn-servico" onclick="irPara('servicos/06-calculadora.tijolos.html')">6 - 🧱 CALC. QUANTIDADE DE TIJOLOS</button>
+            <button class="btn-servico" onclick="irPara('servicos/07-gesso.html')">7 - ⬜ GESSO (R$20,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/08-resumo-geral.html')">📊 8 - RESUMO GERAL / ORÇAMENTO FINAL</button>
+            
+            <!-- ✅ BOTÃO VOLTAR — ÚLTIMO DA LISTA, JUNTO COM OS DEMAIS! -->
+            <button class="btn-servico btn-voltar" onclick="voltarParaPrincipal()">VOLTAR</button>
         </div>
     </div>
 

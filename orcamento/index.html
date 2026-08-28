@@ -88,11 +88,12 @@
             font-weight: 600;
         }
         
-        /* BOTÕES INICIAIS */
+        /* ✅ ÁREA DOS BOTÕES COM CÁLCULO PROPORCIONAL */
         .botoes-iniciais {
             display: flex;
             flex-direction: column;
-            gap: 3vw;
+            gap: 2.5vw;
+            margin-top: -5%;  /* Entrar sobe um pouco */
             padding-bottom: 2vh;
         }
 
@@ -112,10 +113,228 @@
             background: #25d366; 
         }
 
-        /* ✅ APENAS O BOTÃO VOLTAR SUBIDO CERCA DE 10% */
+        /* ✅ VOLTAR SUBIDO 10% COM MARGEM DE SEGURANÇA */
         .btn-voltar { 
             background: #d32f2f; 
-            margin-top: -10%; 
+            margin-top: -7%; 
+        }
+
+        /* TELA DE SERVIÇOS */
+        h1 { 
+            font-size: 5.5vw; 
+            text-align: center; 
+            line-height: 1.25;
+            font-weight: 600;
+            margin: 3vh 0 4vh 0;
+        }
+        
+        .area-botoes {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 2.5vw;
+            overflow-y: auto;
+            padding-right: 1vw;
+        }
+        
+        .btn-servico { 
+            background: #0047ab;
+            text-align: left; 
+            border: 2px solid #D4AF37; 
+            font-size: 4.2vw; 
+            padding: 3.5vw 4vw; 
+            border-radius: 14px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .btn-servico:active { transform: scale(0.98); }
+        
+        .btn-voltar-servicos { 
+            background: #d32f2f;
+            border: 2px solid #b71c1c;
+            text-align: center;
+            font-size: 5vw;
+            font-weight: 700;
+            margin-top: 3vh;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA INICIAL -->
+    <div id="pg-principal" class="pagina">
+        <div class="cabecalho">
+            <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca">
+            <div class="info-contato">
+                <p>William Pedreiro</p>
+                <p>Geral & Empreiteiro.</p>
+            </div>
+        </div>
+
+        <h1>Vai construir? Obtenha seu orçamento por aqui.</h1>
+        
+        <div class="info-inicial">
+            <p><strong>📏 Medidas:</strong><br>
+            Área = Altura × Largura</p>
+            <br>
+            <p><strong>💰 Valores:</strong><br>
+            ✅ Assentamento de tijolos: R$52,00/M²<br>
+            ✅ REBOCO: R$25,00/M²<br>
+            ✅ PORCELANATO: R$60,00/M²<br>
+            ✅ CERÂMICA: R$40,00/M²<br>
+            ✅ CONCRETO: R$200,00/M³<br>
+            ✅ GESSO: R$20,00/M²</p>
+        </div>
+
+        <div class="botoes-iniciais">
+            <button class="btn btn-entrar" onclick="comecar()">Entrar</button>
+            <button class="btn btn-voltar" onclick="voltarParaSite()">Voltar</button>
+        </div>
+    </div>
+
+    <!-- TELA DE SERVIÇOS -->
+    <div id="pg-servicos" class="pagina oculta">
+        <h1>Qual serviço será feito?</h1>
+        
+        <div class="area-botoes">
+            <button class="btn-servico" onclick="irPara('servicos/01-alvenaria.html')">1 - ALVENARIA (R$52,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/02-reboco.html')">2 - REBOCO (R$25,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/03-porcelanato.html')">3 - PORCELANATO (R$60,00/M²)</button>
+            <button class="btn-servico" onclick="irPara('servicos/04-ceramica.html')">4 - CERÂMICA (R$40,00/M²)</button>
+           <[SPEAK_never_used_51bce0c785ca2f68081bfa7d91973934]>William, o cálculo ideal aqui não é botão com `margin-top: -10%` solto, porque isso pode continuar cortando em telas diferentes. O melhor é reduzir um pouco o espaço entre os botões e dar uma subida segura, mantendo ambos dentro da tela.
+
+Vou ajustar para:
+
+- Botão Entrar: subir cerca de 10%
+- Botão Voltar: subir cerca de 10%
+- Diminuir um pouco o espaço entre eles, para não ficar desproporcional
+- Garantir que o Voltar apareça 100% visível na tela
+
+O código abaixo já resolve isso de forma mais segura:
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>William Pedreiro - Orçamentos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        
+        html, body { 
+            height: 100vh; 
+            width: 100vw;
+            overflow: hidden; 
+            background: #002f6c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagina { 
+            width: 100vw;
+            height: 100vh;
+            max-width: 500px;
+            background: #002f6c;
+            padding: 2vh 5vw 4vh 5vw;
+            display: flex;
+            flex-direction: column;
+            color: #fff; 
+            overflow: hidden;
+        }
+        .oculta { display: none !important; }
+        
+        /* CABEÇALHO */
+        .cabecalho { 
+            display: flex; 
+            align-items: center; 
+            gap: 4vw; 
+            margin-top: 2vh;
+        }
+        .leao-cabeca { 
+            width: 18vw; 
+            height: 18vw; 
+            max-width: 90px;
+            max-height: 90px;
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid #D4AF37; 
+        }
+        .info-contato p { 
+            font-size: 4.5vw; 
+            font-weight: 700; 
+            line-height: 1.2;
+        }
+        .info-contato p:last-child {
+            font-size: 3.8vw;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        
+        /* TÍTULO */
+        h1 { 
+            font-size: 5.5vw; 
+            text-align: center; 
+            line-height: 1.25;
+            font-weight: 600;
+            margin: 3vh 0;
+        }
+        
+        /* CAIXA DE VALORES */
+        .info-inicial { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 3.5vw; 
+            border-radius: 16px; 
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 0;
+        }
+        .info-inicial p { 
+            font-size: 4vw; 
+            line-height: 1.5;
+            margin-bottom: 0.5vh;
+        }
+        .info-inicial strong { 
+            color: #FFD700; 
+            font-size: 4.3vw;
+            font-weight: 600;
+        }
+        
+        /* ✅ ÁREA DOS BOTÕES AJUSTADA PARA NÃO CORTAR */
+        .botoes-iniciais {
+            display: flex;
+            flex-direction: column;
+            gap: 2vw; /* Menos espaço entre os dois botões */
+            margin-top: -10%; /* Entrar sobe 10% */
+            padding-bottom: 2vh;
+        }
+
+        .btn { 
+            width: 100%; 
+            padding: 4.5vw; 
+            border: none; 
+            border-radius: 14px; 
+            font-size: 5.5vw; 
+            font-weight: 700; 
+            color: #ffffff; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+        }
+
+        .btn-entrar { 
+            background: #25d366; 
+        }
+
+        .btn-voltar { 
+            background: #d32f2f; 
+            margin-top: -8%; /* Voltar sobe mais um pouco para ficar inteiro */
         }
 
         /* TELA DE SERVIÇOS */

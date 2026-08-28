@@ -6,33 +6,80 @@
     <title>William Pedreiro - Orçamentos</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { background: #f0f4f8; padding: 10px; }
-        .pagina { max-width: 450px; margin: 0 auto; background: #002f6c; padding: 20px; border-radius: 20px; border-top: 4px solid #D4AF37; color: #fff; }
+        html, body { 
+            background: #f0f4f8; 
+            height: 100%; 
+            overflow: hidden; /* ✅ TELA FIXA, SEM ROLAR */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+        }
+        
+        .pagina { 
+            width: 100%; 
+            max-width: 450px; 
+            max-height: 100vh; /* ✅ NÃO ULTRAPASSA A TELA */
+            background: #002f6c; 
+            padding: 15px; /* ✅ MENOS ESPAÇO NAS BORDAS */
+            border-radius: 20px; 
+            border-top: 4px solid #D4AF37; 
+            color: #fff; 
+            overflow: hidden;
+        }
         .oculta { display: none !important; }
         
-        .cabecalho { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-        .leao-cabeca { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #D4AF37; }
-        .info-contato p { font-size: 18px; font-weight: bold; color: #ffffff; margin-bottom: 8px; }
-        
-        h1 { font-size: 28px; color: #ffffff; text-align: center; margin-bottom: 25px; line-height: 1.3; }
-        
-        .info-inicial { 
-            background: rgba(255, 255, 255, 0.1); 
-            padding: 20px; 
-            border-radius: 15px; 
-            margin-bottom: 30px; 
+        /* ✅ CABEÇALHO — MENOR, NÃO CORTA O LEÃO */
+        .cabecalho { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-bottom: 10px; 
+        }
+        .leao-cabeca { 
+            width: 70px; /* ✅ MENOR */
+            height: 70px; /* ✅ MENOR */
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid #D4AF37; 
+        }
+        .info-contato p { 
+            font-size: 16px; /* ✅ MENOR */
+            font-weight: bold; 
             color: #ffffff; 
         }
-        .info-inicial p { margin-bottom: 8px; font-size: 17px; }
-        .info-inicial strong { color: #D4AF37; font-size: 19px; }
         
-        /* ✅ BOTÕES — MESMO TAMANHO, MESMO ESTILO */
+        /* ✅ TÍTULO — MENOR E COMPACTO */
+        h1 { 
+            font-size: 20px; 
+            color: #ffffff; 
+            text-align: center; 
+            margin-bottom: 10px; 
+            line-height: 1.2; 
+        }
+        
+        /* ✅ CAIXA DE INFORMAÇÕES — COMPACTA */
+        .info-inicial { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 12px; /* ✅ MENOS ESPAÇO */
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            color: #ffffff; 
+        }
+        .info-inicial p { 
+            margin-bottom: 4px; 
+            font-size: 15px; /* ✅ MENOR */
+            line-height: 1.3;
+        }
+        .info-inicial strong { color: #D4AF37; font-size: 16px; }
+        
+        /* ✅ BOTÕES — TAMANHO IDEAL PARA CABER */
         .btn { 
             width: 100%; 
-            padding: 18px; 
+            padding: 14px; /* ✅ TAMANHO BOM MAS NÃO EXAGERADO */
             border: none; 
             border-radius: 12px; 
-            font-size: 24px; 
+            font-size: 22px; 
             font-weight: bold; 
             color: #ffffff; 
             cursor: pointer; 
@@ -40,32 +87,29 @@
         }
         .btn:hover { transform: scale(1.02); }
         
-        /* ✅ BOTÃO ENTRAR — VERDE */
         .btn-entrar { 
             background: #25d366; 
-            margin-bottom: 15px; 
+            margin-bottom: 10px; 
         }
-        
-        /* ✅ BOTÃO VOLTAR — VERMELHO, ABAIXO DO ENTRAR */
         .btn-voltar { 
             background: #d32f2f; 
-            font-size: 22px;
+            font-size: 20px;
         }
 
-        /* Estilo da página de serviços */
+        /* Página de serviços */
         .btn-servico { 
             background: #0047ab; 
             text-align: left; 
             border: 1px solid #D4AF37; 
-            font-size: 17px; 
-            padding: 15px 20px; 
-            margin-bottom: 10px;
+            font-size: 15px; 
+            padding: 12px 15px; 
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
 
-    <!-- PÁGINA PRINCIPAL / TELA INICIAL -->
+    <!-- PÁGINA PRINCIPAL — TUDO CABE NA TELA -->
     <div id="pg-principal" class="pagina">
         <div class="cabecalho">
             <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca">
@@ -78,8 +122,7 @@
         <h1>Vai construir? Obtenha seu orçamento por aqui.</h1>
         
         <div class="info-inicial">
-            <p><strong>📏 Medidas:</strong></p>
-            <p>Área = Altura × Largura</p>
+            <p><strong>📏 Medidas:</strong> Área = Altura × Largura</p>
             <br>
             <p><strong>💰 Valores:</strong></p>
             <p>✅ Assentamento de tijolos: R$52,00/M²</p>
@@ -90,10 +133,7 @@
             <p>✅ GESSO: R$20,00/M²</p>
         </div>
 
-        <!-- ✅ BOTÃO ENTRAR -->
         <button class="btn btn-entrar" onclick="comecar()">Entrar</button>
-        
-        <!-- ✅ BOTÃO VOLTAR — GRANDE, ABAIXO DO ENTRAR, VERMELHO -->
         <button class="btn btn-voltar" onclick="voltarParaSite()">Voltar</button>
     </div>
 
@@ -112,11 +152,8 @@
     </div>
 
     <script>
-        // ⬅️ VOLTAR PARA O SITE PRINCIPAL (MENU)
         function voltarParaSite() {
-            // Salva os dados antes de sair
             localStorage.setItem('orcamentoCompleto', JSON.stringify({ salvoEm: new Date().toISOString() }));
-            // Volta para o site principal
             window.location.href = '../index.html';
         }
 

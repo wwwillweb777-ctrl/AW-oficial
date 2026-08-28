@@ -10,7 +10,7 @@
         .pagina { max-width: 450px; margin: 0 auto; background: #002f6c; padding: 20px; border-radius: 20px; border-top: 4px solid #D4AF37; color: #fff; }
         .oculta { display: none !important; }
         
-        /* ⬅️ BOTÃO VOLTAR — COM TEXTO E SETA, NO TOPO */
+        /* ⬅️ BOTÃO VOLTAR — COM TEXTO E SETA */
         .btn-voltar-site {
             position: fixed;
             top: 10px;
@@ -49,8 +49,8 @@
 </head>
 <body>
 
-    <!-- ⬅️ BOTÃO DE VOLTAR — COM A PALAVRA E A SETA -->
-    <button class="btn-voltar-site" onclick="voltarParaSitePrincipal()">
+    <!-- ⬅️ BOTÃO DE VOLTAR — VOLTA UMA PÁGINA (MENU ABERTO) -->
+    <button class="btn-voltar-site" onclick="voltarParaMenu()">
         ← Voltar
     </button>
 
@@ -95,9 +95,10 @@
     </div>
 
     <script>
-        // ⬅️ VOLTAR PARA O SITE PRINCIPAL
-        function voltarParaSitePrincipal() {
-            window.location.href = '../index.html';
+        // ⬅️ VOLTA UMA PÁGINA — MANTÉM O MENU ABERTO!
+        function voltarParaMenu() {
+            // Volta para a página anterior (o site com o menu aberto)
+            history.back();
         }
 
         function mostrarPagina(idPagina) {

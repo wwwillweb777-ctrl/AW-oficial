@@ -9,7 +9,33 @@
         body { background: #f0f4f8; padding: 10px; }
         .pagina { max-width: 450px; margin: 0 auto; background: #002f6c; padding: 20px; border-radius: 20px; border-top: 4px solid #D4AF37; color: #fff; }
         .oculta { display: none !important; }
-        .cabecalho { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        
+        /* ⬅️ BOTÃO VOLTAR — COM TEXTO E SETA, NO TOPO */
+        .btn-voltar-site {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #d32f2f;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+        .btn-voltar-site:hover {
+            background: #b71c1c;
+            transform: scale(1.05);
+        }
+
+        .cabecalho { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; margin-top: 60px; }
         .leao-cabeca { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #D4AF37; }
         .info-contato p { font-size: 18px; font-weight: bold; color: #ffffff; margin-bottom: 8px; }
         h1 { font-size: 26px; color: #ffffff; text-align: center; margin: 15px 0; }
@@ -22,6 +48,11 @@
     </style>
 </head>
 <body>
+
+    <!-- ⬅️ BOTÃO DE VOLTAR — COM A PALAVRA E A SETA -->
+    <button class="btn-voltar-site" onclick="voltarParaSitePrincipal()">
+        ← Voltar
+    </button>
 
     <!-- PÁGINA PRINCIPAL -->
     <div id="pg-principal" class="pagina">
@@ -64,6 +95,11 @@
     </div>
 
     <script>
+        // ⬅️ VOLTAR PARA O SITE PRINCIPAL
+        function voltarParaSitePrincipal() {
+            window.location.href = '../index.html';
+        }
+
         function mostrarPagina(idPagina) {
             document.querySelectorAll('.pagina').forEach(p => p.classList.add('oculta'));
             document.getElementById(idPagina).classList.remove('oculta');

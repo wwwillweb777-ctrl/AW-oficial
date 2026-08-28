@@ -30,53 +30,7 @@
         }
         .oculta { display: none !important; }
         
-        /* ✅ TÍTULO */
-        h1 { 
-            font-size: 5.5vw; 
-            text-align: center; 
-            line-height: 1.25;
-            font-weight: 600;
-            margin: 3vh 0 4vh 0;
-        }
-        
-        /* ✅ ÁREA DOS BOTÕES — OCUPA O ESPAÇO, SEM VAZIO */
-        .area-botoes {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 2.5vw;
-            overflow-y: auto; /* ✅ ROLA SÓ SE PRECISAR */
-            padding-right: 1vw;
-        }
-        
-        /* ✅ BOTÕES DE SERVIÇO — MESMO ESTILO */
-        .btn-servico { 
-            background: #0047ab;
-            text-align: left; 
-            border: 2px solid #D4AF37; 
-            font-size: 4.2vw; 
-            padding: 3.5vw 4vw; 
-            border-radius: 14px;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
-        }
-        .btn-servico:active { transform: scale(0.98); }
-        
-        /* ✅ BOTÃO VOLTAR — JUNTO NA LISTA, ÚLTIMO, VERMELHO */
-        .btn-voltar { 
-            background: #d32f2f;
-            border: 2px solid #b71c1c;
-            text-align: center;
-            font-size: 5vw;
-            font-weight: 700;
-            margin-top: 3vh; /* ✅ UM POUCO DE ESPAÇO ANTES, PARA DESTACAR */
-        }
-
-        /* === TELA INICIAL (mantemos como já estava perfeito) === */
+        /* ✅ CABEÇALHO */
         .cabecalho { 
             display: flex; 
             align-items: center; 
@@ -102,11 +56,26 @@
             opacity: 0.9;
             font-weight: 500;
         }
+        
+        /* ✅ TÍTULO */
+        h1 { 
+            font-size: 5.5vw; 
+            text-align: center; 
+            line-height: 1.25;
+            font-weight: 600;
+            margin: 3vh 0;
+        }
+        
+        /* ✅ CAIXA DE VALORES */
         .info-inicial { 
             background: rgba(255, 255, 255, 0.1); 
             padding: 3.5vw; 
             border-radius: 16px; 
-            margin: 3vh 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 0;
         }
         .info-inicial p { 
             font-size: 4vw; 
@@ -118,13 +87,16 @@
             font-size: 4.3vw;
             font-weight: 600;
         }
+        
+        /* ✅ BOTÕES INICIAIS — SUBIDOS CERCA DE 10% */
         .botoes-iniciais {
             display: flex;
             flex-direction: column;
             gap: 3vw;
-            margin-top: auto;
+            margin-top: -10%; /* ✅ EMPURRA OS BOTÕES PARA CIMA */
             padding-bottom: 2vh;
         }
+        
         .btn { 
             width: 100%; 
             padding: 4.5vw; 
@@ -137,14 +109,55 @@
             transition: all 0.2s ease;
         }
         .btn-entrar { background: #25d366; }
-        .btn-voltar-inicial { background: #d32f2f; }
+        .btn-voltar { background: #d32f2f; }
+
+        /* TELA DE SERVIÇOS */
+        h1 { 
+            font-size: 5.5vw; 
+            text-align: center; 
+            line-height: 1.25;
+            font-weight: 600;
+            margin: 3vh 0 4vh 0;
+        }
+        
+        .area-botoes {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 2.5vw;
+            overflow-y: auto;
+            padding-right: 1vw;
+        }
+        
+        .btn-servico { 
+            background: #0047ab;
+            text-align: left; 
+            border: 2px solid #D4AF37; 
+            font-size: 4.2vw; 
+            padding: 3.5vw 4vw; 
+            border-radius: 14px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .btn-servico:active { transform: scale(0.98); }
+        
+        .btn-voltar { 
+            background: #d32f2f;
+            border: 2px solid #b71c1c;
+            text-align: center;
+            font-size: 5vw;
+            font-weight: 700;
+            margin-top: 3vh;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ====================================== -->
-    <!-- TELA INICIAL — JÁ ESTAVA PERFEITA -->
-    <!-- ====================================== -->
+    <!-- TELA INICIAL -->
     <div id="pg-principal" class="pagina">
         <div class="cabecalho">
             <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca">
@@ -171,13 +184,11 @@
 
         <div class="botoes-iniciais">
             <button class="btn btn-entrar" onclick="comecar()">Entrar</button>
-            <button class="btn btn-voltar-inicial" onclick="voltarParaSite()">Voltar</button>
+            <button class="btn btn-voltar" onclick="voltarParaSite()">Voltar</button>
         </div>
     </div>
 
-    <!-- ====================================== -->
-    <!-- TELA DE SERVIÇOS — VOLTAR JUNTO NA LISTA! -->
-    <!-- ====================================== -->
+    <!-- TELA DE SERVIÇOS -->
     <div id="pg-servicos" class="pagina oculta">
         <h1>Qual serviço será feito?</h1>
         
@@ -191,7 +202,6 @@
             <button class="btn-servico" onclick="irPara('servicos/07-gesso.html')">7 - ⬜ GESSO (R$20,00/M²)</button>
             <button class="btn-servico" onclick="irPara('servicos/08-resumo-geral.html')">📊 8 - RESUMO GERAL / ORÇAMENTO FINAL</button>
             
-            <!-- ✅ BOTÃO VOLTAR — ÚLTIMO DA LISTA, JUNTO COM OS DEMAIS! -->
             <button class="btn-servico btn-voltar" onclick="voltarParaPrincipal()">VOLTAR</button>
         </div>
     </div>

@@ -30,7 +30,7 @@
         }
         .oculta { display: none !important; }
         
-        /* ✅ CABEÇALHO */
+        /* CABEÇALHO */
         .cabecalho { 
             display: flex; 
             align-items: center; 
@@ -57,7 +57,7 @@
             font-weight: 500;
         }
         
-        /* ✅ TÍTULO */
+        /* TÍTULO */
         h1 { 
             font-size: 5.5vw; 
             text-align: center; 
@@ -66,7 +66,7 @@
             margin: 3vh 0;
         }
         
-        /* ✅ CAIXA DE VALORES */
+        /* CAIXA DE VALORES */
         .info-inicial { 
             background: rgba(255, 255, 255, 0.1); 
             padding: 3.5vw; 
@@ -88,15 +88,14 @@
             font-weight: 600;
         }
         
-        /* ✅ BOTÕES INICIAIS — SUBIDOS CERCA DE 10% */
+        /* BOTÕES INICIAIS */
         .botoes-iniciais {
             display: flex;
             flex-direction: column;
             gap: 3vw;
-            margin-top: -10%; /* ✅ EMPURRA OS BOTÕES PARA CIMA */
             padding-bottom: 2vh;
         }
-        
+
         .btn { 
             width: 100%; 
             padding: 4.5vw; 
@@ -108,8 +107,16 @@
             cursor: pointer; 
             transition: all 0.2s ease;
         }
-        .btn-entrar { background: #25d366; }
-        .btn-voltar { background: #d32f2f; }
+
+        .btn-entrar { 
+            background: #25d366; 
+        }
+
+        /* ✅ APENAS O BOTÃO VOLTAR SUBIDO CERCA DE 10% */
+        .btn-voltar { 
+            background: #d32f2f; 
+            margin-top: -10%; 
+        }
 
         /* TELA DE SERVIÇOS */
         h1 { 
@@ -145,7 +152,7 @@
         }
         .btn-servico:active { transform: scale(0.98); }
         
-        .btn-voltar { 
+        .btn-voltar-servicos { 
             background: #d32f2f;
             border: 2px solid #b71c1c;
             text-align: center;
@@ -202,7 +209,7 @@
             <button class="btn-servico" onclick="irPara('servicos/07-gesso.html')">7 - ⬜ GESSO (R$20,00/M²)</button>
             <button class="btn-servico" onclick="irPara('servicos/08-resumo-geral.html')">📊 8 - RESUMO GERAL / ORÇAMENTO FINAL</button>
             
-            <button class="btn-servico btn-voltar" onclick="voltarParaPrincipal()">VOLTAR</button>
+            <button class="btn-servico btn-voltar-servicos" onclick="voltarParaPrincipal()">VOLTAR</button>
         </div>
     </div>
 

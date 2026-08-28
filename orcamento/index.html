@@ -39,7 +39,7 @@
         .leao-cabeca { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #D4AF37; }
         .info-contato p { font-size: 18px; font-weight: bold; color: #ffffff; margin-bottom: 8px; }
         h1 { font-size: 26px; color: #ffffff; text-align: center; margin: 15px 0; }
-        .info-inicial { background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px; color: #ffffff; }
+        .info-inicial { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px; color: #ffffff; }
         .info-inicial strong { color: #D4AF37; }
         .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 20px; font-weight: bold; color: #ffffff; cursor: pointer; margin-bottom: 10px; }
         .btn-comecar { background: #25d366; font-size: 22px; }
@@ -49,12 +49,12 @@
 </head>
 <body>
 
-    <!-- ⬅️ BOTÃO DE VOLTAR — VOLTA UMA PÁGINA (MENU ABERTO) -->
+    <!-- ⬅️ BOTÃO DE VOLTAR — COM A PALAVRA E A SETA -->
     <button class="btn-voltar-site" onclick="voltarParaMenu()">
         ← Voltar
     </button>
 
-    <!-- PÁGINA PRINCIPAL -->
+    <!-- PÁGINA PRINCIPAL DO ORÇAMENTO -->
     <div id="pg-principal" class="pagina">
         <div class="cabecalho">
             <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca">
@@ -95,10 +95,21 @@
     </div>
 
     <script>
-        // ⬅️ VOLTA UMA PÁGINA — MANTÉM O MENU ABERTO!
+        // ⬅️ VOLTAR PARA O MENU — SALVA OS DADOS ANTES DE SAIR!
         function voltarParaMenu() {
-            // Volta para a página anterior (o site com o menu aberto)
-            history.back();
+            // ✅ SALVA OS DADOS DO ORÇAMENTO ANTES DE SAIR
+            localStorage.setItem('orcamentoCompleto', JSON.stringify({
+                salvoEm: new Date().toISOString()
+            }));
+            
+            // ✅ VOLTA PARA O SITE PRINCIPAL COM O MENU — SEM PERDER OS DADOS
+            // Usamos document.referrer para voltar para a página que abriu o orçamento
+            if (document.referrer && document.referrer.includes('web777-ctrl.github.io')) {
+                window.location.href = document.referrer;
+            } else {
+                // Fallback: volta para o index.html do site principal
+                window.location.href = '../index.html?menu=aberto';
+            }
         }
 
         function mostrarPagina(idPagina) {

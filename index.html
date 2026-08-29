@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AW Construções</title>
+    <title>Will Construções & Reformas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
         @layer utilities {
@@ -29,7 +29,7 @@
                 background-color: #0a2463;
                 overflow: hidden;
                 white-space: nowrap;
-                padding: 12px 0;
+                padding: 8px 0;
                 width: 100%;
                 position: relative;
                 z-index: 9999;
@@ -43,8 +43,8 @@
 
             .texto-letreiro {
                 display: inline-block;
-                font-size: 0.99rem;
-                line-height: 1.45rem;
+                font-size: 0.85rem;
+                line-height: 1.3rem;
                 font-weight: 500;
                 color: #ffffff;
                 margin: 0;
@@ -67,11 +67,11 @@
                 animation: piscar 0.8s ease-in-out infinite alternate;
             }
 
-            /* 🧭 CABEÇALHO — SEM IMAGEM, APENAS TEXTO */
+            /* 🧭 CABEÇALHO */
             .cabecalho {
                 background-color: #0a2463;
                 width: 100%;
-                padding: 18px 25px;
+                padding: 10px 20px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -83,11 +83,10 @@
             }
 
             .logo-texto {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
                 font-weight: bold;
                 color: #ffffff;
             }
-            .logo-texto .letra-a { color: #39ff14; }
             .logo-texto .letra-w { color: #ff9900; }
 
             /* 📍 FRASE */
@@ -95,7 +94,7 @@
                 position: absolute;
                 right: 22%; 
                 top: -2%;    
-                font-size: 1.1rem;
+                font-size: 1rem;
                 font-weight: bold;
                 line-height: 1;
                 white-space: nowrap;
@@ -115,8 +114,8 @@
             .dedinho {
                 position: absolute;
                 right: 12%; 
-                top: -17%; 
-                font-size: 1.8rem;
+                top: -18%; 
+                font-size: 1.6rem;
                 transform: rotate(150deg); 
                 animation: movimentoDedo 0.6s infinite alternate ease-in-out;
                 transform-origin: center;
@@ -144,10 +143,10 @@
             .botao-menu {
                 position: absolute;
                 right: 20px;
-                top: 18px;
+                top: 12px;
                 background: transparent;
                 border: none;
-                font-size: 1.9rem;
+                font-size: 1.7rem;
                 cursor: pointer;
                 color: #39ff14;
                 line-height: 1;
@@ -226,24 +225,24 @@
                 100% { opacity: 1; }
             }
 
-            /* 🦁 CONTEÚDO — IMAGEM NOVA SOMENTE NO CENTRO */
+            /* 🦁 CONTEÚDO — LOGO NOVA SOMENTE NO CENTRO, SEM TEXTO DUPLICADO */
             .conteudo {
                 display: flex;
                 flex-direction: column;
                 background-color: #0a2463;
                 transform: translateZ(0);
-                height: calc(100vh - 120px);
+                height: calc(100vh - 100px);
                 overflow: hidden;
                 justify-content: center;
-                padding-top: 20px;
+                padding: 5px 15px 0 15px;
             }
 
             .logo-principal {
                 width: 100%;
-                max-width: 500px;
+                max-width: 380px;
                 height: auto;
                 display: block;
-                margin: 0 auto 20px auto;
+                margin: 0 auto 8px auto;
                 object-fit: contain;
             }
 
@@ -253,61 +252,55 @@
                 justify-content: flex-start;
                 align-items: center;
                 text-align: center;
-                padding: 20px;
-                gap: 25px;
+                padding: 0 10px 10px 10px;
+                gap: 8px;
                 background-color: #0a2463;
                 width: 100%;
                 box-sizing: border-box;
                 margin-top: 0 !important;
             }
 
-            .titulo-inferior { 
-                font-size: 1.8rem;
-                font-weight: bold;
-                color: #ffffff;
-                margin-bottom: 10px;
-            }
-
             .subtitulo-inferior {
                 color: #e2e4ec;
-                font-size: clamp(1.15rem, 3.8vw, 1.55rem);
+                font-size: clamp(0.95rem, 3.2vw, 1.2rem);
                 font-weight: 500;
                 margin: 0;
-                line-height: 1.3;
+                line-height: 1.2;
                 width: 90%;
             }
 
             .texto-informativo {
                 color: #d0d6f0;
-                font-size: clamp(0.93rem, 3.1vw, 1.21rem);
+                font-size: clamp(0.8rem, 2.7vw, 1rem);
                 font-weight: 400;
                 margin: 0;
-                line-height: 1.55;
+                line-height: 1.4;
                 width: 90%;
                 opacity: 0.95;
             }
 
-            /* 📊 BLOCO DE VISUALIZAÇÕES */
+            /* 📊 BLOCO DE VISUALIZAÇÕES — AJUSTADO PARA CABER */
             .youtube-bloco {
                 display: flex !important;
                 visibility: visible !important;
                 opacity: 1 !important;
                 flex-direction: column;
-                gap: 14px;
+                gap: 8px;
                 color: #ffffff;
                 width: 95%;
-                max-width: 460px;
-                padding: 18px 22px;
+                max-width: 380px;
+                padding: 12px 15px;
                 background-color: #051a48;
-                border-radius: 16px;
+                border-radius: 14px;
                 box-shadow: 0 3px 8px rgba(0,0,0,0.25);
                 text-align: left;
                 position: relative;
                 z-index: 20;
+                margin-top: 5px;
             }
 
             .views {
-                font-size: clamp(1.12rem, 3.5vw, 1.4rem);
+                font-size: clamp(0.95rem, 3vw, 1.15rem);
                 font-weight: 500;
                 line-height: 1.1;
                 color: #ffffff;
@@ -317,21 +310,21 @@
                 gap: 6px;
             }
             .texto-visualizacoes {
-                font-size: clamp(0.69rem, 2.1vw, 0.84rem);
+                font-size: clamp(0.65rem, 2vw, 0.75rem);
                 opacity: 0.9;
             }
 
             .acoes {
                 display: flex;
                 align-items: center;
-                gap: 40px;
-                font-size: clamp(1.2rem, 4vw, 1.5rem);
-                margin-top: 6px;
+                gap: 30px;
+                font-size: clamp(1rem, 3.5vw, 1.25rem);
+                margin-top: 4px;
             }
             .acao {
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 6px;
                 cursor: pointer;
                 user-select: none;
                 color: #cccccc;
@@ -344,8 +337,8 @@
             .naoCurtiu { color: #ff3333 !important; }
 
             svg {
-                width: clamp(28px, 6vw, 36px);
-                height: clamp(28px, 6vw, 36px);
+                width: clamp(22px, 5vw, 28px);
+                height: clamp(22px, 5vw, 28px);
                 fill: currentColor;
             }
 
@@ -353,7 +346,7 @@
                 width: 100%;
                 height: 3px;
                 background: #123478;
-                margin: 6px 0;
+                margin: 4px 0 0 0;
                 border-radius: 2px;
                 overflow: hidden;
             }
@@ -385,10 +378,10 @@
         </div>
     </div>
 
-    <!-- 🧩 CABEÇALHO — SEM IMAGEM, APENAS TEXTO -->
+    <!-- 🧩 CABEÇALHO — ATUALIZADO PARA Will Construções -->
     <div class="cabecalho">
         <h1 class="logo-texto">
-            <span class="letra-a">A</span><span class="letra-w">W</span> Construções
+            <span class="letra-w">W</span>ill Construções
         </h1>
 
         <span class="texto-clique-aqui">
@@ -399,18 +392,17 @@
         <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- 🦁 CONTEÚDO — IMAGEM NOVA GRANDE SOMENTE AQUI NO CENTRO -->
+    <!-- 🦁 CONTEÚDO — LOGO NOVA, SEM TEXTO DUPLICADO, TUDO CABE NA TELA -->
     <div class="conteudo">
-        <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="AW Construções" class="logo-principal">
+        <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="Will Construções & Reformas" class="logo-principal">
 
         <div class="texto-inferior">
-            <h2 class="titulo-inferior">AW Construções</h2>
             <p class="subtitulo-inferior">Qualidade e Força em Cada Obra</p>
             <p class="texto-informativo">
                 Visite nossas páginas: conheça serviços, preços, trabalhos e depoimentos. Qualidade, força e transparência em cada passo da sua construção.
             </p>
 
-            <!-- 📊 BLOCO DE VISUALIZAÇÕES -->
+            <!-- 📊 BLOCO DE VISUALIZAÇÕES — VISÍVEL COMPLETAMENTE -->
             <div class="youtube-bloco">
                 <div class="views" id="views">
                     <span id="numeroViews">0</span>
@@ -526,7 +518,7 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     if (elViews) elViews.textContent = formatarNumero(v);
     if (elTextoViews) elTextoViews.textContent = "visualizações";
     if (elCurtidas) elCurtidas.textContent = formatarNumero(c);
-    if (elNaoCurtidas) elNaoCurtidas.textContent = "0";
+    if (elNaoCurtidas) elNaoCurtidas.textContent = formatarNumero(n);
 
     const total = c + n;
     const porcentagem = total > 0 ? (c / total) * 100 : 0;

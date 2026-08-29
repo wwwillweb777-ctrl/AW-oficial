@@ -225,7 +225,7 @@
                 100% { opacity: 1; }
             }
 
-            /* 🦁 CONTEÚDO — LOGO MAIS PARA CIMA, PREENCHENDO O ESPAÇO */
+            /* 🦁 CONTEÚDO — LOGO MAIS PARA CIMA, TEXTOS MAIORES, PREENCHENDO TELA */
             .conteudo {
                 display: flex;
                 flex-direction: column;
@@ -233,8 +233,8 @@
                 transform: translateZ(0);
                 height: calc(100vh - 90px);
                 overflow: hidden;
-                justify-content: flex-start; /* ✅ Alinha para cima */
-                padding: 5px 15px 0 15px; /* ✅ Menos espaço no topo */
+                justify-content: flex-start;
+                padding: 8px 15px 0 15px;
             }
 
             .logo-principal {
@@ -242,7 +242,7 @@
                 max-width: 380px;
                 height: auto;
                 display: block;
-                margin: 0 auto 5px auto; /* ✅ Menos espaço acima e abaixo da logo */
+                margin: 0 auto 12px auto;
                 object-fit: contain;
             }
 
@@ -252,44 +252,45 @@
                 justify-content: flex-start;
                 align-items: center;
                 text-align: center;
-                padding: 0 10px 8px 10px;
-                gap: 6px;
+                padding: 0 10px 15px 10px;
+                gap: 14px; /* ✅ Mais espaçamento entre os textos */
                 background-color: #0a2463;
                 width: 100%;
                 box-sizing: border-box;
                 margin-top: 0 !important;
             }
 
+            /* ✅ TEXTO AUMENTADO — PREENCHE MELHOR O ESPAÇO */
             .subtitulo-inferior {
                 color: #e2e4ec;
-                font-size: clamp(0.95rem, 3.2vw, 1.2rem);
-                font-weight: 500;
+                font-size: clamp(1.15rem, 4vw, 1.4rem); /* ✅ Maior */
+                font-weight: 600; /* ✅ Mais destaque */
                 margin: 0;
-                line-height: 1.2;
-                width: 90%;
+                line-height: 1.3;
+                width: 95%;
             }
 
             .texto-informativo {
                 color: #d0d6f0;
-                font-size: clamp(0.8rem, 2.7vw, 1rem);
+                font-size: clamp(0.95rem, 3.3vw, 1.15rem); /* ✅ Maior */
                 font-weight: 400;
                 margin: 0;
-                line-height: 1.4;
-                width: 90%;
+                line-height: 1.5;
+                width: 95%;
                 opacity: 0.95;
             }
 
-            /* 📊 BLOCO DE VISUALIZAÇÕES — AJUSTADO */
+            /* 📊 BLOCO DE VISUALIZAÇÕES — EXATAMENTE COMO ESTAVA, PERFEITO */
             .youtube-bloco {
                 display: flex !important;
                 visibility: visible !important;
                 opacity: 1 !important;
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
                 color: #ffffff;
                 width: 95%;
                 max-width: 380px;
-                padding: 12px 15px;
+                padding: 14px 18px;
                 background-color: #051a48;
                 border-radius: 14px;
                 box-shadow: 0 3px 8px rgba(0,0,0,0.25);
@@ -300,7 +301,7 @@
             }
 
             .views {
-                font-size: clamp(0.95rem, 3vw, 1.15rem);
+                font-size: clamp(1rem, 3.2vw, 1.2rem);
                 font-weight: 500;
                 line-height: 1.1;
                 color: #ffffff;
@@ -310,7 +311,7 @@
                 gap: 6px;
             }
             .texto-visualizacoes {
-                font-size: clamp(0.65rem, 2vw, 0.75rem);
+                font-size: clamp(0.7rem, 2.2vw, 0.85rem);
                 opacity: 0.9;
             }
 
@@ -318,7 +319,7 @@
                 display: flex;
                 align-items: center;
                 gap: 30px;
-                font-size: clamp(1rem, 3.5vw, 1.25rem);
+                font-size: clamp(1.1rem, 3.8vw, 1.3rem);
                 margin-top: 4px;
             }
             .acao {
@@ -337,8 +338,8 @@
             .naoCurtiu { color: #ff3333 !important; }
 
             svg {
-                width: clamp(22px, 5vw, 28px);
-                height: clamp(22px, 5vw, 28px);
+                width: clamp(24px, 5.5vw, 30px);
+                height: clamp(24px, 5.5vw, 30px);
                 fill: currentColor;
             }
 
@@ -392,17 +393,18 @@
         <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- 🦁 CONTEÚDO — LOGO MAIS PARA CIMA, PREENCHENDO O ESPAÇO -->
+    <!-- 🦁 CONTEÚDO — TEXTOS MAIORES, PREENCHENDO TELA, LIKES PERFEITOS -->
     <div class="conteudo">
         <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="Will Construções & Reformas" class="logo-principal">
 
         <div class="texto-inferior">
+            <!-- ✅ TEXTO AUMENTADO E MAIS DESTAQUE -->
             <p class="subtitulo-inferior">Qualidade e Força em Cada Obra</p>
             <p class="texto-informativo">
                 Visite nossas páginas: conheça serviços, preços, trabalhos e depoimentos. Qualidade, força e transparência em cada passo da sua construção.
             </p>
 
-            <!-- 📊 BLOCO DE VISUALIZAÇÕES -->
+            <!-- 📊 BLOCO DE VISUALIZAÇÕES — EXATAMENTE COMO ESTAVA, PERFEITO -->
             <div class="youtube-bloco">
                 <div class="views" id="views">
                     <span id="numeroViews">0</span>

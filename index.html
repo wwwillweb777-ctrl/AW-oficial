@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Will Construções & Reformas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
@@ -11,17 +11,14 @@
                 margin: 0; 
                 padding: 0; 
                 box-sizing: border-box; 
-                -webkit-overflow-scrolling: none;
-                overscroll-behavior: none;
-                touch-action: none;
             }
             body { 
                 background-color: #0a2463; 
                 font-family: sans-serif; 
-                overflow: hidden;
-                position: fixed;
-                width: 100%;
-                height: 100%;
+                /* ✅ REMOVIDO: overflow: hidden e posição fixa — TUDO VISÍVEL E ROLÁVEL */
+                min-height: 100vh;
+                overflow-y: auto;
+                overflow-x: hidden;
             }
 
             .faixa-letreiro {
@@ -69,7 +66,7 @@
             .cabecalho {
                 background-color: #0a2463;
                 width: 100%;
-                padding: 8px 20px;
+                padding: 12px 20px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -77,7 +74,6 @@
                 top: 0;
                 z-index: 9999;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-                transform: translateZ(0);
             }
 
             .logo-texto {
@@ -90,7 +86,8 @@
             .texto-clique-aqui {
                 position: absolute;
                 right: 22%; 
-                top: -2%;    
+                top: 50%;
+                transform: translateY(-50%);
                 font-size: 1rem;
                 font-weight: bold;
                 line-height: 1;
@@ -110,11 +107,10 @@
             .dedinho {
                 position: absolute;
                 right: 12%; 
-                top: -18%; 
+                top: 50%;
+                transform: translateY(-50%) rotate(150deg); 
                 font-size: 1.6rem;
-                transform: rotate(150deg); 
                 animation: movimentoDedo 0.6s infinite alternate ease-in-out;
-                transform-origin: center;
                 line-height: 1;
                 pointer-events: none;
             }
@@ -130,14 +126,15 @@
             }
 
             @keyframes movimentoDedo {
-                0%   { transform: rotate(150deg) translateY(0); }
-                100% { transform: rotate(150deg) translateY(-40%); }
+                0%   { transform: translateY(-50%) rotate(150deg) translateY(0); }
+                100% { transform: translateY(-50%) rotate(150deg) translateY(-8px); }
             }
 
             .botao-menu {
                 position: absolute;
                 right: 20px;
-                top: 10px;
+                top: 50%;
+                transform: translateY(-50%);
                 background: transparent;
                 border: none;
                 font-size: 1.7rem;
@@ -159,6 +156,7 @@
                 display: flex;
                 flex-direction: column;
                 padding: 25px 20px;
+                overflow-y: auto;
             }
             .menu-lateral.aberto { left: 0; }
 
@@ -221,11 +219,9 @@
                 display: flex;
                 flex-direction: column;
                 background-color: #0a2463;
-                transform: translateZ(0);
-                height: calc(100vh - 90px);
-                overflow: hidden;
-                justify-content: flex-start;
-                padding: 8px 15px 0 15px;
+                min-height: calc(100vh - 90px);
+                padding: 15px;
+                align-items: center;
             }
 
             .logo-principal {
@@ -233,7 +229,7 @@
                 max-width: 380px;
                 height: auto;
                 display: block;
-                margin: 0 auto 12px auto;
+                margin: 0 auto 15px auto;
                 object-fit: contain;
             }
 
@@ -243,12 +239,11 @@
                 justify-content: flex-start;
                 align-items: center;
                 text-align: center;
-                padding: 0 10px 15px 10px;
+                padding: 0 10px 20px 10px;
                 gap: 14px;
                 background-color: #0a2463;
                 width: 100%;
                 box-sizing: border-box;
-                margin-top: 0 !important;
             }
 
             .subtitulo-inferior {
@@ -271,9 +266,9 @@
             }
 
             .youtube-bloco {
-                display: flex !important;
-                visibility: visible !important;
-                opacity: 1 !important;
+                display: flex;
+                visibility: visible;
+                opacity: 1;
                 flex-direction: column;
                 gap: 10px;
                 color: #ffffff;
@@ -286,7 +281,7 @@
                 text-align: left;
                 position: relative;
                 z-index: 20;
-                margin-top: 5px;
+                margin-top: 10px;
             }
 
             .views {
@@ -347,15 +342,16 @@
                 transition: width 0.3s ease;
             }
 
-            /* ===== ESTILOS DO SISTEMA DE ORÇAMENTO ===== */
+            /* ===== ESTILOS DO SISTEMA DE ORÇAMENTO — TUDO VISÍVEL ===== */
             .pagina { 
                 max-width: 450px; 
                 margin: 0 auto; 
                 background: #002f6c; 
                 padding: 20px; 
                 border-radius: 20px; 
-                border-top: 4px solid #D4AF37; 
+                border: 3px solid #D4AF37; 
                 color: #fff; 
+                width: 100%;
             }
             .oculta { display: none !important; }
             .cabecalho-orcamento { 
@@ -363,6 +359,8 @@
                 align-items: center; 
                 gap: 15px; 
                 margin-bottom: 20px; 
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .leao-cabeca { 
                 width: 100px; 
@@ -370,6 +368,7 @@
                 border-radius: 50%; 
                 object-fit: cover; 
                 border: 3px solid #D4AF37; 
+                background: #ccc; /* ✅ Cor de fundo enquanto imagem carrega */
             }
             .info-contato p { 
                 font-size: 18px; 
@@ -378,10 +377,11 @@
                 margin-bottom: 8px; 
             }
             h1 { 
-                font-size: 26px; 
+                font-size: 24px; 
                 color: #ffffff; 
                 text-align: center; 
                 margin: 15px 0; 
+                line-height: 1.3;
             }
             .info-inicial { 
                 background: rgba(255, 255, 255, 0.1); 
@@ -415,14 +415,15 @@
                 font-weight: bold; 
                 color: #ffffff; 
                 cursor: pointer; 
-                margin-bottom: 10px; 
+                margin-bottom: 12px;
             }
             .btn-comecar { background: #25d366; font-size: 22px; }
             .btn-servico { 
                 background: #0047ab; 
                 text-align: left; 
                 border: 1px solid #D4AF37; 
-                font-size: 17px; 
+                font-size: 16px; 
+                padding: 12px 15px;
             }
             .btn-voltar { background: #d32f2f; }
             .btn-ja-paguei { 
@@ -442,15 +443,20 @@
                 color: #000;
             }
             label { font-weight: bold; color: #ffffff; }
-            .area-pix { text-align: center; margin: 15px 0; }
+            .area-pix { text-align: center; margin: 20px 0; }
             .container-logo-valor { 
                 display: flex; 
                 align-items: center; 
                 justify-content: center; 
                 gap: 15px; 
                 margin-bottom: 15px; 
+                flex-wrap: wrap;
             }
-            .logo-pix { width: 120px; }
+            .logo-pix { 
+                width: 120px; 
+                background: #fff; /* ✅ Fundo enquanto imagem carrega */
+                border-radius: 8px;
+            }
             .valor-pix { font-size: 28px; font-weight: bold; color: #ffffff; }
             .instrucao { 
                 color: #ffffff; 
@@ -470,9 +476,10 @@
                 padding: 12px; 
                 border-radius: 8px; 
                 font-family: monospace; 
-                font-size: 17px; 
+                font-size: 15px; 
                 word-break: break-all; 
                 border: 2px solid #000; 
+                margin-bottom: 15px;
             }
             .img-topo-lib { 
                 width: 100%; 
@@ -481,6 +488,7 @@
                 margin: 0 auto 20px auto; 
                 border-radius: 10px; 
                 border: 3px solid #D4AF37; 
+                background: #ccc; /* ✅ Fundo enquanto imagem carrega */
             }
             .campo-whats { 
                 background: rgba(255, 255, 255, 0.1); 
@@ -492,14 +500,20 @@
             }
             .btn-copiar-pix { 
                 background: #D4AF37; 
-                margin-top: 15px; 
+                margin-top: 0; 
                 font-size: 18px; 
                 color: #000;
             }
             .conteudo-orcamento {
-                height: 100%;
-                overflow-y: auto;
+                width: 100%;
+                overflow-y: visible;
                 padding-bottom: 30px;
+            }
+            #pagina-orcamento {
+                width: 100%;
+                overflow-y: auto;
+                min-height: 100vh;
+                padding: 20px 15px 40px 15px;
             }
         }
     </style>
@@ -537,9 +551,9 @@
         <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL DO SITE -->
+    <!-- CONTEÚDO PRINCIPAL DO SITE — TUDO VISÍVEL E ROLÁVEL -->
     <div id="pagina-principal" class="conteudo">
-        <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="Will Construções & Reformas" class="logo-principal">
+        <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="Will Construções & Reformas" class="logo-principal" loading="lazy">
 
         <div class="texto-inferior">
             <p class="subtitulo-inferior">Qualidade e Força em Cada Obra</p>
@@ -547,7 +561,7 @@
                 Visite nossas páginas: conheça serviços, preços, trabalhos e depoimentos. Qualidade, força e transparência em cada passo da sua construção.
             </p>
 
-            <!-- BLOCO DE VISUALIZAÇÕES E VOTOS - SÓ O NÃO-GOSTEI ZERADO -->
+            <!-- BLOCO DE VISUALIZAÇÕES E VOTOS -->
             <div class="youtube-bloco">
                 <div class="views" id="views">
                     <span id="numeroViews">0</span>
@@ -577,13 +591,13 @@
         </div>
     </div>
 
-    <!-- ===== SISTEMA DE ORÇAMENTO — PÁGINAS ===== -->
-    <div id="pagina-orcamento" class="conteudo oculta" style="overflow-y: auto;">
+    <!-- ===== SISTEMA DE ORÇAMENTO — TUDO VISÍVEL ===== -->
+    <div id="pagina-orcamento" class="conteudo oculta">
         <div class="pagina conteudo-orcamento">
             <!-- PÁGINA PRINCIPAL DO ORÇAMENTO -->
             <div id="pg-orcamento-inicio">
                 <div class="cabecalho-orcamento">
-                    <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca">
+                    <img src="imagens/leao.webp" alt="Leão" class="leao-cabeca" loading="lazy">
                     <div class="info-contato">
                         <p>William Pedreiro</p>
                         <p>Geral & Empreiteiro.</p>
@@ -596,12 +610,12 @@
                     <p>Área = Altura × Largura</p>
                     <br>
                     <p><strong>💰 Valores:</strong></p>
-                    <p>✅ Assentamento de tijolos: R$52,00/M²</p>
-                    <p>✅ REBOCO: R$25,00/M²</p>
-                    <p>✅ PORCELANATO: R$60,00/M²</p>
-                    <p>✅ CERÂMICA: R$40,00/M²</p>
-                    <p>✅ CONCRETO: R$200,00/M³</p>
-                    <p>✅ GESSO: R$20,00/M²</p>
+                    <p>✅ Assentamento de tijolos: R$ 52,00/M²</p>
+                    <p>✅ REBOCO: R$ 25,00/M²</p>
+                    <p>✅ PORCELANATO: R$ 60,00/M²</p>
+                    <p>✅ CERÂMICA: R$ 40,00/M²</p>
+                    <p>✅ CONCRETO: R$ 200,00/M³</p>
+                    <p>✅ GESSO: R$ 20,00/M²</p>
                 </div>
                 <button class="btn btn-comecar" onclick="mostrarPagina('pg-servicos')">Entrar</button>
                 <button class="btn btn-voltar" onclick="voltarParaSitePrincipal()">VOLTAR AO SITE</button>
@@ -610,20 +624,20 @@
             <!-- PÁGINA DE SERVIÇOS -->
             <div id="pg-servicos" class="oculta">
                 <h1>Qual serviço será feito?</h1>
-                <button class="btn btn-servico" onclick="irParaServico('servicos/01-alvenaria.html')">1 - Assentamento de tijolos (R$52,00/M²)</button>
-                <button class="btn btn-servico" onclick="irParaServico('servicos/02-reboco.html')">2 - REBOCO (R$25,00/M²)</button>
-                <button class="btn btn-servico" onclick="irParaServico('servicos/03-porcelanato.html')">3 - PORCELANATO (R$60,00/M²)</button>
-                <button class="btn btn-servico" onclick="irParaServico('servicos/04-ceramica.html')">4 - CERÂMICA (R$40,00/M²)</button>
-                <button class="btn btn-servico" onclick="irParaServico('servicos/05-concreto.html')">5 - CONCRETO (R$200,00/M³)</button>
+                <button class="btn btn-servico" onclick="irParaServico('servicos/01-alvenaria.html')">1 - Assentamento de tijolos (R$ 52,00/M²)</button>
+                <button class="btn btn-servico" onclick="irParaServico('servicos/02-reboco.html')">2 - REBOCO (R$ 25,00/M²)</button>
+                <button class="btn btn-servico" onclick="irParaServico('servicos/03-porcelanato.html')">3 - PORCELANATO (R$ 60,00/M²)</button>
+                <button class="btn btn-servico" onclick="irParaServico('servicos/04-ceramica.html')">4 - CERÂMICA (R$ 40,00/M²)</button>
+                <button class="btn btn-servico" onclick="irParaServico('servicos/05-concreto.html')">5 - CONCRETO (R$ 200,00/M³)</button>
                 <button class="btn btn-servico" onclick="irParaServico('servicos/06-calculadora-tijolos.html')">6 - 🧱 CALC. QUANTIDADE DE TIJOLOS</button>
-                <button class="btn btn-servico" onclick="irParaServico('servicos/07-gesso.html')">7 - ⬜ GESSO (R$20,00/M²)</button>
+                <button class="btn btn-servico" onclick="irParaServico('servicos/07-gesso.html')">7 - ⬜ GESSO (R$ 20,00/M²)</button>
                 <button class="btn btn-servico" onclick="irParaServico('servicos/08-resumo-geral.html')">📊 8 - RESUMO GERAL / ORÇAMENTO FINAL</button>
                 <button class="btn btn-voltar" onclick="mostrarPagina('pg-orcamento-inicio')">VOLTAR</button>
             </div>
 
             <!-- PÁGINA DE SENHA -->
             <div id="pg-senha" class="oculta">
-                <img src="imagens/olhos-leao.webp" alt="Olhos do Leão" class="img-topo-lib">
+                <img src="imagens/olhos-leao.webp" alt="Olhos do Leão" class="img-topo-lib" loading="lazy">
                 <h1>Obrigado pela preferência</h1>
                 <div class="aviso-senha">
                     <strong>⚠️ Aviso Importante</strong>
@@ -631,7 +645,7 @@
                 </div>
                 <div class="area-pix">
                     <div class="container-logo-valor">
-                        <img src="imagens/pix.webp" alt="Logo Pix" class="logo-pix">
+                        <img src="imagens/pix.webp" alt="Logo Pix" class="logo-pix" loading="lazy">
                         <span class="valor-pix">R$: 5,00</span>
                     </div>
                     <p class="instrucao">👉 Clique para copiar a chave!</p>
@@ -674,7 +688,7 @@ function abrirMenu() {
 function fecharMenu() {
     const menu = document.getElementById('menuLateral');
     menu.classList.remove('aberto');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'auto';
 }
 
 function irPara(pagina) {
@@ -710,6 +724,7 @@ function abrirOrcamento() {
     fecharMenu();
     document.getElementById('pagina-principal').classList.add('oculta');
     document.getElementById('pagina-orcamento').classList.remove('oculta');
+    window.scrollTo(0, 0);
     if (verificarLiberacao()) {
         mostrarPagina('pg-servicos');
     } else {
@@ -721,6 +736,7 @@ function voltarParaSitePrincipal() {
     document.getElementById('pagina-orcamento').classList.add('oculta');
     document.getElementById('pagina-principal').classList.remove('oculta');
     resetarLiberacao();
+    window.scrollTo(0, 0);
 }
 
 function irParaServico(url) {
@@ -805,7 +821,6 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const elCurtidas = document.getElementById("curtidas");
     const elNaoCurtidas = document.getElementById("naoCurtidas");
     const elBarra = document.getElementById("barra");
-    const elBloco = document.querySelector('.youtube-bloco');
 
     if (elViews) elViews.textContent = formatarNumero(v);
     if (elTextoViews) elTextoViews.textContent = "visualizações";
@@ -815,15 +830,6 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const total = c + n;
     const porcentagem = total > 0 ? (c / total) * 100 : 0;
     if (elBarra) elBarra.style.width = `${porcentagem}%`;
-
-    if (elBloco) {
-        elBloco.style.cssText = `
-            display: flex !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        `;
-    }
 }
 
 const verificarSeJaVotou = async () => {

@@ -24,7 +24,6 @@
                 height: 100%;
             }
 
-            /* 🚩 LETREIRO ANIMADO */
             .faixa-letreiro {
                 background-color: #0a2463;
                 overflow: hidden;
@@ -67,7 +66,6 @@
                 animation: piscar 0.8s ease-in-out infinite alternate;
             }
 
-            /* 🧭 CABEÇALHO */
             .cabecalho {
                 background-color: #0a2463;
                 width: 100%;
@@ -89,7 +87,6 @@
             }
             .logo-texto .letra-w { color: #ff9900; }
 
-            /* 📍 FRASE */
             .texto-clique-aqui {
                 position: absolute;
                 right: 22%; 
@@ -110,7 +107,6 @@
                 display: inline-block;
             }
 
-            /* ✅ DEDO */
             .dedinho {
                 position: absolute;
                 right: 12%; 
@@ -123,7 +119,6 @@
                 pointer-events: none;
             }
 
-            /* 🎬 ANIMAÇÕES DAS CORES */
             @keyframes piscarVerde {
                 0%   { color: #208000; }
                 100% { color: #39ff14; }
@@ -134,7 +129,6 @@
                 100% { color: #ff0000; }
             }
 
-            /* ✅ ANIMAÇÃO DO DEDO */
             @keyframes movimentoDedo {
                 0%   { transform: rotate(150deg) translateY(0); }
                 100% { transform: rotate(150deg) translateY(-40%); }
@@ -152,7 +146,6 @@
                 line-height: 1;
             }
 
-            /* 📋 MENU LATERAL */
             .menu-lateral {
                 position: fixed;
                 top: 0;
@@ -203,7 +196,6 @@
                 box-shadow: 0 2px 5px rgba(0,0,0,0.35);
             }
 
-            /* 🟢 BOTÃO ORÇAMENTO ONLINE — DESTAQUE ESPECIAL */
             .item-menu.orcamento {
                 background: linear-gradient(90deg, #006400, #228B22);
                 border: 2px solid #39ff14;
@@ -225,7 +217,6 @@
                 100% { opacity: 1; }
             }
 
-            /* 🦁 CONTEÚDO — LOGO MAIS PARA CIMA, TEXTOS MAIORES, PREENCHENDO TELA */
             .conteudo {
                 display: flex;
                 flex-direction: column;
@@ -253,18 +244,17 @@
                 align-items: center;
                 text-align: center;
                 padding: 0 10px 15px 10px;
-                gap: 14px; /* ✅ Mais espaçamento entre os textos */
+                gap: 14px;
                 background-color: #0a2463;
                 width: 100%;
                 box-sizing: border-box;
                 margin-top: 0 !important;
             }
 
-            /* ✅ TEXTO AUMENTADO — PREENCHE MELHOR O ESPAÇO */
             .subtitulo-inferior {
                 color: #e2e4ec;
-                font-size: clamp(1.15rem, 4vw, 1.4rem); /* ✅ Maior */
-                font-weight: 600; /* ✅ Mais destaque */
+                font-size: clamp(1.15rem, 4vw, 1.4rem);
+                font-weight: 600;
                 margin: 0;
                 line-height: 1.3;
                 width: 95%;
@@ -272,7 +262,7 @@
 
             .texto-informativo {
                 color: #d0d6f0;
-                font-size: clamp(0.95rem, 3.3vw, 1.15rem); /* ✅ Maior */
+                font-size: clamp(0.95rem, 3.3vw, 1.15rem);
                 font-weight: 400;
                 margin: 0;
                 line-height: 1.5;
@@ -280,7 +270,6 @@
                 opacity: 0.95;
             }
 
-            /* 📊 BLOCO DE VISUALIZAÇÕES — EXATAMENTE COMO ESTAVA, PERFEITO */
             .youtube-bloco {
                 display: flex !important;
                 visibility: visible !important;
@@ -363,7 +352,7 @@
 <body>
 <script src="config.js"></script>
     
-    <!-- 🚩 LETREIRO -->
+    <!-- LETREIRO -->
     <div class="faixa-letreiro">
         <div class="texto-wrapper">
             <span class="texto-letreiro">
@@ -379,7 +368,7 @@
         </div>
     </div>
 
-    <!-- 🧩 CABEÇALHO -->
+    <!-- CABEÇALHO -->
     <div class="cabecalho">
         <h1 class="logo-texto">
             <span class="letra-w">W</span>ill Construções
@@ -393,18 +382,17 @@
         <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- 🦁 CONTEÚDO — TEXTOS MAIORES, PREENCHENDO TELA, LIKES PERFEITOS -->
+    <!-- CONTEÚDO -->
     <div class="conteudo">
         <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="Will Construções & Reformas" class="logo-principal">
 
         <div class="texto-inferior">
-            <!-- ✅ TEXTO AUMENTADO E MAIS DESTAQUE -->
             <p class="subtitulo-inferior">Qualidade e Força em Cada Obra</p>
             <p class="texto-informativo">
                 Visite nossas páginas: conheça serviços, preços, trabalhos e depoimentos. Qualidade, força e transparência em cada passo da sua construção.
             </p>
 
-            <!-- 📊 BLOCO DE VISUALIZAÇÕES — EXATAMENTE COMO ESTAVA, PERFEITO -->
+            <!-- BLOCO DE VISUALIZAÇÕES E VOTOS - SÓ O NÃO-GOSTEI ZERADO -->
             <div class="youtube-bloco">
                 <div class="views" id="views">
                     <span id="numeroViews">0</span>
@@ -434,7 +422,7 @@
         </div>
     </div>
 
-    <!-- 📋 MENU LATERAL -->
+    <!-- MENU LATERAL -->
     <div id="menuLateral" class="menu-lateral">
         <div class="fechar-menu" onclick="fecharMenu()">&times;</div>
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('index.html')">🏠 Início</a>
@@ -445,7 +433,6 @@
         <a href="javascript:void(0)" class="item-menu" onclick="irPara('contato.html')">📞 Contato</a>
     </div>
 
-<!-- ⚡ FUNÇÕES -->
 <script>
 function abrirMenu() {
     const menu = document.getElementById('menuLateral');
@@ -468,7 +455,7 @@ function irPara(pagina) {
 }
 </script>
 
-<!-- 🔥 FIREBASE -->
+<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, get, set, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
@@ -508,7 +495,8 @@ function formatarNumero(numero) {
 function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const v = dados.visitas || 0;
     const c = dados.curtidas || 0;
-    const n = dados.naoCurtidas || 0;
+    // ✅ FORÇA O NÃO-CURTIDAS COMEÇAR EM 0 — ZERA O NÚMERO QUE ELE COLOCOU
+    const n = 0;
 
     const elViews = document.getElementById("numeroViews");
     const elTextoViews = document.querySelector(".texto-visualizacoes");
@@ -520,7 +508,8 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     if (elViews) elViews.textContent = formatarNumero(v);
     if (elTextoViews) elTextoViews.textContent = "visualizações";
     if (elCurtidas) elCurtidas.textContent = formatarNumero(c);
-    if (elNaoCurtidas) elNaoCurtidas.textContent = formatarNumero(n);
+    // ✅ SEMPRE EXIBE 0 PARA NÃO-CURTIDAS
+    if (elNaoCurtidas) elNaoCurtidas.textContent = formatarNumero(0);
 
     const total = c + n;
     const porcentagem = total > 0 ? (c / total) * 100 : 0;
@@ -564,6 +553,8 @@ const registrarAcesso = async () => {
             await runTransaction(estatisticasRef, (dados) => {
                 if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
                 dados.visitas = (dados.visitas || 0) + 1;
+                // ✅ MANTÉM O NÃO-CURTIDAS SEMPRE EM 0 NO BANCO TAMBÉM
+                dados.naoCurtidas = 0;
                 return dados;
             });
         }
@@ -589,6 +580,8 @@ document.addEventListener("click", async (e) => {
                 await runTransaction(estatisticasRef, (dados) => {
                     if (!dados) return { visitas: 1, curtidas: 1, naoCurtidas: 0 };
                     dados.curtidas = (dados.curtidas || 0) + 1;
+                    // ✅ NÃO DEIXA INCREMENTAR O NÃO-CURTIDAS
+                    dados.naoCurtidas = 0;
                     return dados;
                 });
                 btn.classList.add("curtiu");
@@ -606,8 +599,9 @@ document.addEventListener("click", async (e) => {
             try {
                 await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: true });
                 await runTransaction(estatisticasRef, (dados) => {
-                    if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 1 };
-                    dados.naoCurtidas = (dados.naoCurtidas || 0) + 1;
+                    if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
+                    // ✅ NÃO PERMITE AUMENTAR O NÚMERO DE NÃO-CURTIDAS — SEMPRE ZERA
+                    dados.naoCurtidas = 0;
                     return dados;
                 });
                 btn.classList.add("naoCurtiu");

@@ -29,7 +29,7 @@
                 background-color: #0a2463;
                 overflow: hidden;
                 white-space: nowrap;
-                padding: 8px 0;
+                padding: 6px 0;
                 width: 100%;
                 position: relative;
                 z-index: 9999;
@@ -71,7 +71,7 @@
             .cabecalho {
                 background-color: #0a2463;
                 width: 100%;
-                padding: 10px 20px;
+                padding: 8px 20px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -143,7 +143,7 @@
             .botao-menu {
                 position: absolute;
                 right: 20px;
-                top: 12px;
+                top: 10px;
                 background: transparent;
                 border: none;
                 font-size: 1.7rem;
@@ -225,16 +225,16 @@
                 100% { opacity: 1; }
             }
 
-            /* 🦁 CONTEÚDO — LOGO NOVA SOMENTE NO CENTRO, SEM TEXTO DUPLICADO */
+            /* 🦁 CONTEÚDO — LOGO MAIS PARA CIMA, PREENCHENDO O ESPAÇO */
             .conteudo {
                 display: flex;
                 flex-direction: column;
                 background-color: #0a2463;
                 transform: translateZ(0);
-                height: calc(100vh - 100px);
+                height: calc(100vh - 90px);
                 overflow: hidden;
-                justify-content: center;
-                padding: 5px 15px 0 15px;
+                justify-content: flex-start; /* ✅ Alinha para cima */
+                padding: 5px 15px 0 15px; /* ✅ Menos espaço no topo */
             }
 
             .logo-principal {
@@ -242,7 +242,7 @@
                 max-width: 380px;
                 height: auto;
                 display: block;
-                margin: 0 auto 8px auto;
+                margin: 0 auto 5px auto; /* ✅ Menos espaço acima e abaixo da logo */
                 object-fit: contain;
             }
 
@@ -252,8 +252,8 @@
                 justify-content: flex-start;
                 align-items: center;
                 text-align: center;
-                padding: 0 10px 10px 10px;
-                gap: 8px;
+                padding: 0 10px 8px 10px;
+                gap: 6px;
                 background-color: #0a2463;
                 width: 100%;
                 box-sizing: border-box;
@@ -279,7 +279,7 @@
                 opacity: 0.95;
             }
 
-            /* 📊 BLOCO DE VISUALIZAÇÕES — AJUSTADO PARA CABER */
+            /* 📊 BLOCO DE VISUALIZAÇÕES — AJUSTADO */
             .youtube-bloco {
                 display: flex !important;
                 visibility: visible !important;
@@ -378,7 +378,7 @@
         </div>
     </div>
 
-    <!-- 🧩 CABEÇALHO — ATUALIZADO PARA Will Construções -->
+    <!-- 🧩 CABEÇALHO -->
     <div class="cabecalho">
         <h1 class="logo-texto">
             <span class="letra-w">W</span>ill Construções
@@ -392,7 +392,7 @@
         <button class="botao-menu" onclick="abrirMenu()">&#9776;</button>
     </div>
 
-    <!-- 🦁 CONTEÚDO — LOGO NOVA, SEM TEXTO DUPLICADO, TUDO CABE NA TELA -->
+    <!-- 🦁 CONTEÚDO — LOGO MAIS PARA CIMA, PREENCHENDO O ESPAÇO -->
     <div class="conteudo">
         <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="Will Construções & Reformas" class="logo-principal">
 
@@ -402,7 +402,7 @@
                 Visite nossas páginas: conheça serviços, preços, trabalhos e depoimentos. Qualidade, força e transparência em cada passo da sua construção.
             </p>
 
-            <!-- 📊 BLOCO DE VISUALIZAÇÕES — VISÍVEL COMPLETAMENTE -->
+            <!-- 📊 BLOCO DE VISUALIZAÇÕES -->
             <div class="youtube-bloco">
                 <div class="views" id="views">
                     <span id="numeroViews">0</span>

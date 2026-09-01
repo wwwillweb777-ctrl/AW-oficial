@@ -384,8 +384,8 @@
 
     <!-- CONTEÚDO -->
     <div class="conteudo">
-        <!-- ✅ IMAGEM LOCAL — SEM LINK EXTERNO -->
-        <img src="imagens/logo-will-construcoes.webp" alt="Will Construções & Reformas" class="logo-principal">
+        <!-- ✅ CAMINHO DA IMAGEM CORRIGIDO -->
+        <img src="orcamento/imagens/logo-will-construcoes.webp" alt="Will Construções & Reformas" class="logo-principal">
 
         <div class="texto-inferior">
             <p class="subtitulo-inferior">Qualidade e Força em Cada Obra</p>
@@ -496,7 +496,6 @@ function formatarNumero(numero) {
 function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const v = dados.visitas || 0;
     const c = dados.curtidas || 0;
-    // ✅ NÃO-CURTIDAS SEMPRE EM 0
     const n = 0;
 
     const elViews = document.getElementById("numeroViews");
@@ -509,7 +508,6 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     if (elViews) elViews.textContent = formatarNumero(v);
     if (elTextoViews) elTextoViews.textContent = "visualizações";
     if (elCurtidas) elCurtidas.textContent = formatarNumero(c);
-    // ✅ SEMPRE EXIBE 0 PARA NÃO-CURTIDAS
     if (elNaoCurtidas) elNaoCurtidas.textContent = formatarNumero(0);
 
     const total = c + n;
@@ -554,7 +552,6 @@ const registrarAcesso = async () => {
             await runTransaction(estatisticasRef, (dados) => {
                 if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
                 dados.visitas = (dados.visitas || 0) + 1;
-                // ✅ MANTÉM NÃO-CURTIDAS SEMPRE EM 0 NO BANCO
                 dados.naoCurtidas = 0;
                 return dados;
             });
@@ -581,7 +578,6 @@ document.addEventListener("click", async (e) => {
                 await runTransaction(estatisticasRef, (dados) => {
                     if (!dados) return { visitas: 1, curtidas: 1, naoCurtidas: 0 };
                     dados.curtidas = (dados.curtidas || 0) + 1;
-                    // ✅ NÃO DEIXA INCREMENTAR NÃO-CURTIDAS
                     dados.naoCurtidas = 0;
                     return dados;
                 });
@@ -601,7 +597,6 @@ document.addEventListener("click", async (e) => {
                 await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: true });
                 await runTransaction(estatisticasRef, (dados) => {
                     if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
-                    // ✅ SEMPRE ZERA NÃO-CURTIDAS
                     dados.naoCurtidas = 0;
                     return dados;
                 });

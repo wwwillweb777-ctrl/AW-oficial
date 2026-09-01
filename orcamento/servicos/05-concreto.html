@@ -114,7 +114,6 @@
 
     <button class="btn btn-salvar" onclick="salvarItem()">💾 SALVAR</button>
     <button class="btn btn-whatsapp" onclick="mostrarCampoWhatsApp()">📲 ENVIAR PELO WHATSAPP</button>
-    
     <button class="btn btn-resumo" onclick="window.location.href='08-resumo-geral.html'">📊 VER RESUMO GERAL</button>
 
     <div class="campo-whats" id="area-whats">
@@ -132,7 +131,6 @@
 <script>
 const PRECO_M3 = 200;
 const SEU_NUMERO = "5531990721928";
-const TOTAL_ETAPAS = 8;
 
 let dadosSalvos = null;
 
@@ -165,6 +163,7 @@ function calcular() {
     const m3Areia = (volume * 0.45).toFixed(2);
     const m3Brita = (volume * 0.55).toFixed(2);
 
+    // ✅ CORRIGIDO: "m³" aparece apenas 1 vez
     document.getElementById('volume').textContent = formatarNumero(volume) + ' m³';
     document.getElementById('valor').textContent = 'R$ ' + formatarNumero(valorFinal);
     document.getElementById('qtd-cimento').textContent = sacosCimento + ' sacos de 50kg';
@@ -237,12 +236,10 @@ function enviarWhatsApp() {
     alert("✅ Orçamento completo! Abrindo WhatsApp...");
 }
 
-// ✅ CORRIGIDO: PRÓXIMO → Calculadora de Tijolos (06)
 function irParaProximo() {
     window.location.href = "06-calculadora.tijolos.html";
 }
 
-// ✅ CORRIGIDO: VOLTAR → Cerâmica (04)
 function voltar() {
     window.location.href = "04-ceramica.html";
 }

@@ -454,7 +454,7 @@ function irPara(pagina) {
 }
 </script>
 
-<!-- FIREBASE CORRIGIDO — PODE CURTIR NOVAMENTE AO FECHAR E ABRIR! -->
+<!-- FIREBASE — BOTÕES 100% FUNCIONAIS, REGISTRANDO E MOSTRANDO NÚMEROS! -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, get, set, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
@@ -472,12 +472,29 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const estatisticasRef = ref(db, "estatisticas");
+const visitantesRef = ref(db, "visitantes");
 
-// ✅ CACHE PARA OS NÚMEROS NÃO ZERAREM AO NAVEGAR
-const CHAVE_DADOS_CACHE = 'will_estatisticas_cache';
-const CHAVE_VOTO_SESSAO = 'will_voto_na_sessao';
+// ✅ DETECTA NOVA SESSÃO (fechou e abriu o navegador)
+const CHAVE_SESSAO = 'sessao_will_ativa';
 
-// ✅ FORMATAR NÚMEROS
+function obterCodigoVisitante() {
+    let codigo = sessionStorage.getItem("codigoVisitante");
+    if (!codigo) {
+        codigo = Math.random().toString(36).slice(2) + Date.now().toString(36);
+        sessionStorage.setItem("codigoVisitante", codigo);
+    }
+    return codigo;
+}
+const codigoUnico = obterCodigoVisitante();
+
+function ehNovaSessao() {
+    if (!sessionStorage.getItem(CHAVE_SESSAO)) {
+        sessionStorage.setItem(CHAVE_SESSAO, 'sim');
+        return true;
+    }
+    return false;
+}
+
 function formatarNumero(numero) {
     numero = Number(numero) || 0;
     if (numero >= 1000000) return (numero / 1000000).toFixed(1).replace('.0', '') + 'M';
@@ -485,18 +502,6 @@ function formatarNumero(numero) {
     return numero.toString();
 }
 
-// ✅ SALVAR E LER CACHE
-function salvarCache(dados) {
-    localStorage.setItem(CHAVE_DADOS_CACHE, JSON.stringify(dados));
-}
-function lerCache() {
-    try {
-        const salvo = localStorage.getItem(CHAVE_DADOS_CACHE);
-        return salvo ? JSON.parse(salvo) : null;
-    } catch { return null; }
-}
-
-// ✅ ATUALIZAR TELA
 function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const v = dados.visitas || 0;
     const c = dados.curtidas || 0;
@@ -514,107 +519,111 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const total = c + n;
     const porcentagem = total > 0 ? (c / total) * 100 : 0;
     if (elBarra) elBarra.style.width = `${porcentagem}%`;
-
-    salvarCache(dados);
 }
 
-// ✅ INICIALIZA COM CACHE — NÃO ZERA!
-function inicializarComCache() {
-    const dadosSalvos = lerCache();
-    if (dadosSalvos) atualizarTela(dadosSalvos);
-}
-
-// ✅ VERIFICA SE JÁ VOTOU NESSA SESSÃO
-function jaVotouNestaSessao() {
-    return sessionStorage.getItem(CHAVE_VOTO_SESSAO) !== null;
-}
-
-// ✅ BLOQUEIA OS BOTÕES APÓS VOTAR
-function bloquearBotoes(tipo) {
-    const btnCurtir = document.getElementById("btnCurtir");
-    const btnNaoCurtir = document.getElementById("btnNaoCurtir");
-    if (tipo === 'curtir') {
-        btnCurtir.classList.add("curtiu", "desativado");
-        btnNaoCurtir.classList.add("desativado");
-    } else {
-        btnNaoCurtir.classList.add("naoCurtiu", "desativado");
-        btnCurtir.classList.add("desativado");
-    }
-    sessionStorage.setItem(CHAVE_VOTO_SESSAO, tipo); // ✅ SÓ DURA ENQUANTO O NAVEGADOR ESTÁ ABERTO!
-}
-
-// ✅ LIBERA OS BOTÕES — SÓ FUNCIONA NO CARREGAMENTO
-function liberarBotoesSeNovaSessao() {
-    // sessionStorage se apaga ao fechar o navegador → se não existe, é nova sessão!
-    if (!sessionStorage.getItem(CHAVE_VOTO_SESSAO)) {
+const verificarSeJaVotou = async () => {
+    try {
+        const snap = await get(ref(db, `visitantes/${codigoUnico}`));
+        const jaVotou = snap.exists() && snap.val().jaVotou;
         const btnCurtir = document.getElementById("btnCurtir");
         const btnNaoCurtir = document.getElementById("btnNaoCurtir");
-        if (btnCurtir) btnCurtir.classList.remove("desativado", "curtiu");
-        if (btnNaoCurtir) btnNaoCurtir.classList.remove("desativado", "naoCurtiu");
-    } else {
-        // Se já votou nesta sessão, mantém bloqueado
-        const tipo = sessionStorage.getItem(CHAVE_VOTO_SESSAO);
-        if (tipo === 'curtir') bloquearBotoes('curtir');
-        else if (tipo === 'naoCurtir') bloquearBotoes('naoCurtir');
-    }
-}
+        
+        // ✅ NOVA SESSÃO = LIBERA OS DOIS BOTÕES!
+        if (ehNovaSessao()) {
+            if (btnCurtir) btnCurtir.classList.remove("desativado", "curtiu");
+            if (btnNaoCurtir) btnNaoCurtir.classList.remove("desativado", "naoCurtiu");
+            await set(ref(db, `visitantes/${codigoUnico}/jaVotou`), false);
+            return;
+        }
 
-// ✅ REGISTRAR VISITA — SÓ CONTA UMA VEZ POR SESSÃO
-const registrarVisita = async () => {
-    const jaContou = sessionStorage.getItem('visita_contada');
-    if (!jaContou) {
-        sessionStorage.setItem('visita_contada', 'sim');
-        await runTransaction(estatisticasRef, (dados) => {
-            if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
-            dados.visitas = (dados.visitas || 0) + 1;
-            return dados;
-        });
+        // Mesma sessão = mantém bloqueado
+        if (btnCurtir) btnCurtir.classList.toggle("desativado", jaVotou);
+        if (btnNaoCurtir) btnNaoCurtir.classList.toggle("desativado", jaVotou);
+    } catch (e) {
+        console.log("Erro ao verificar voto:", e);
     }
 };
 
-// ✅ ESCUTA ALTERAÇÕES DO BANCO EM TEMPO REAL
+const registrarAcesso = async () => {
+    try {
+        const snap = await get(ref(db, `visitantes/${codigoUnico}`));
+        const novaSessao = ehNovaSessao();
+
+        if (!snap.exists()) {
+            await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: false });
+            await runTransaction(estatisticasRef, (dados) => {
+                if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
+                dados.visitas = (dados.visitas || 0) + 1;
+                return dados;
+            });
+        } else if (novaSessao) {
+            // ✅ NOVA SESSÃO = CONTA VISITA + LIBERA VOTOS
+            await runTransaction(estatisticasRef, (dados) => {
+                if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
+                dados.visitas = (dados.visitas || 0) + 1;
+                return dados;
+            });
+            await set(ref(db, `visitantes/${codigoUnico}/jaVotou`), false);
+        }
+        await verificarSeJaVotou();
+    } catch (e) {
+        console.log("Erro de conexão:", e);
+    }
+};
+
 onValue(estatisticasRef, (snap) => {
     const dados = snap.val();
-    if (dados) atualizarTela(dados);
+    atualizarTela(dados || { visitas: 0, curtidas: 0, naoCurtidas: 0 });
+}, (erro) => {
+    console.log("Erro no Firebase:", erro);
 });
 
-// ✅ BOTÃO CURTIR
+// ✅ CURTIR — FUNCIONAL, REGISTRA E SOMA!
 document.addEventListener("click", async (e) => {
     if (e.target.closest("#btnCurtir")) {
-        if (jaVotouNestaSessao()) return;
-        try {
-            await runTransaction(estatisticasRef, (dados) => {
-                if (!dados) return { visitas: 1, curtidas: 1, naoCurtidas: 0 };
-                dados.curtidas = (dados.curtidas || 0) + 1;
-                return dados;
-            });
-            bloquearBotoes('curtir');
-        } catch {
-            alert("Não foi possível registrar seu voto");
+        const btn = document.getElementById("btnCurtir");
+        if (btn && !btn.classList.contains("desativado")) {
+            try {
+                await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: true });
+                await runTransaction(estatisticasRef, (dados) => {
+                    if (!dados) return { visitas: 1, curtidas: 1, naoCurtidas: 0 };
+                    dados.curtidas = (dados.curtidas || 0) + 1;
+                    return dados;
+                });
+                btn.classList.add("curtiu", "desativado");
+                document.getElementById("btnNaoCurtir").classList.add("desativado");
+            } catch (erro) {
+                alert("Não foi possível registrar seu voto");
+            }
         }
     }
 
-    // ✅ BOTÃO NÃO GOSTEI
+    // ✅ NÃO GOSTEI — TOTALMENTE FUNCIONAL, REGISTRA E SOMA DE VERDADE!
     if (e.target.closest("#btnNaoCurtir")) {
-        if (jaVotouNestaSessao()) return;
-        try {
-            await runTransaction(estatisticasRef, (dados) => {
-                if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 1 };
-                dados.naoCurtidas = (dados.naoCurtidas || 0) + 1;
-                return dados;
-            });
-            bloquearBotoes('naoCurtir');
-        } catch {
-            alert("Não foi possível registrar seu voto");
+        const btn = document.getElementById("btnNaoCurtir");
+        if (btn && !btn.classList.contains("desativado")) {
+            try {
+                await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: true });
+                await runTransaction(estatisticasRef, (dados) => {
+                    if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 1 };
+                    dados.naoCurtidas = (dados.naoCurtidas || 0) + 1;
+                    return dados;
+                });
+                btn.classList.add("naoCurtiu", "desativado");
+                document.getElementById("btnCurtir").classList.add("desativado");
+            } catch (erro) {
+                alert("Não foi possível registrar seu voto");
+            }
         }
     }
 });
 
-// ✅ INICIALIZAÇÃO
+window.addEventListener('pageshow', () => atualizarTela());
+window.addEventListener('focus', () => atualizarTela());
+
 document.addEventListener('DOMContentLoaded', () => {
-    inicializarComCache();      // ✅ Mostra os números salvos na hora!
-    liberarBotoesSeNovaSessao(); // ✅ Libera os botões ao fechar e abrir!
-    registrarVisita();         // ✅ Conta visita só uma vez por sessão!
+    atualizarTela({ visitas: 0, curtidas: 0, naoCurtidas: 0 });
+    registrarAcesso();
 });
 </script>
 

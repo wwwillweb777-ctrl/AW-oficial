@@ -384,7 +384,8 @@
 
     <!-- CONTEÚDO -->
     <div class="conteudo">
-        <img src="https://i.postimg.cc/52VjywvC/IMG-20260829-054701-(1).webp" alt="Will Construções & Reformas" class="logo-principal">
+        <!-- ✅ IMAGEM LOCAL — SEM LINK EXTERNO -->
+        <img src="imagens/logo-will-construcoes.webp" alt="Will Construções & Reformas" class="logo-principal">
 
         <div class="texto-inferior">
             <p class="subtitulo-inferior">Qualidade e Força em Cada Obra</p>
@@ -392,7 +393,7 @@
                 Visite nossas páginas: conheça serviços, preços, trabalhos e depoimentos. Qualidade, força e transparência em cada passo da sua construção.
             </p>
 
-            <!-- BLOCO DE VISUALIZAÇÕES E VOTOS - SÓ O NÃO-GOSTEI ZERADO -->
+            <!-- BLOCO DE VISUALIZAÇÕES E VOTOS - NÃO-GOSTEI SEMPRE ZERADO -->
             <div class="youtube-bloco">
                 <div class="views" id="views">
                     <span id="numeroViews">0</span>
@@ -495,7 +496,7 @@ function formatarNumero(numero) {
 function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const v = dados.visitas || 0;
     const c = dados.curtidas || 0;
-    // ✅ FORÇA O NÃO-CURTIDAS COMEÇAR EM 0 — ZERA O NÚMERO QUE ELE COLOCOU
+    // ✅ NÃO-CURTIDAS SEMPRE EM 0
     const n = 0;
 
     const elViews = document.getElementById("numeroViews");
@@ -553,7 +554,7 @@ const registrarAcesso = async () => {
             await runTransaction(estatisticasRef, (dados) => {
                 if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
                 dados.visitas = (dados.visitas || 0) + 1;
-                // ✅ MANTÉM O NÃO-CURTIDAS SEMPRE EM 0 NO BANCO TAMBÉM
+                // ✅ MANTÉM NÃO-CURTIDAS SEMPRE EM 0 NO BANCO
                 dados.naoCurtidas = 0;
                 return dados;
             });
@@ -580,7 +581,7 @@ document.addEventListener("click", async (e) => {
                 await runTransaction(estatisticasRef, (dados) => {
                     if (!dados) return { visitas: 1, curtidas: 1, naoCurtidas: 0 };
                     dados.curtidas = (dados.curtidas || 0) + 1;
-                    // ✅ NÃO DEIXA INCREMENTAR O NÃO-CURTIDAS
+                    // ✅ NÃO DEIXA INCREMENTAR NÃO-CURTIDAS
                     dados.naoCurtidas = 0;
                     return dados;
                 });
@@ -600,7 +601,7 @@ document.addEventListener("click", async (e) => {
                 await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: true });
                 await runTransaction(estatisticasRef, (dados) => {
                     if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
-                    // ✅ NÃO PERMITE AUMENTAR O NÚMERO DE NÃO-CURTIDAS — SEMPRE ZERA
+                    // ✅ SEMPRE ZERA NÃO-CURTIDAS
                     dados.naoCurtidas = 0;
                     return dados;
                 });

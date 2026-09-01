@@ -384,7 +384,6 @@
 
     <!-- CONTEÚDO -->
     <div class="conteudo">
-        <!-- ✅ CAMINHO CORRIGIDO — SIMPLES E CERTO! -->
         <img src="orcamento/imagens/logo-will-construcoes.webp" alt="Will Construções & Reformas" class="logo-principal">
 
         <div class="texto-inferior">
@@ -393,7 +392,6 @@
                 Visite nossas páginas: conheça serviços, preços, trabalhos e depoimentos. Qualidade, força e transparência em cada passo da sua construção.
             </p>
 
-            <!-- BLOCO DE VISUALIZAÇÕES E VOTOS - NÃO-GOSTEI SEMPRE ZERADO -->
             <div class="youtube-bloco">
                 <div class="views" id="views">
                     <span id="numeroViews">0</span>
@@ -456,7 +454,7 @@ function irPara(pagina) {
 }
 </script>
 
-<!-- FIREBASE -->
+<!-- FIREBASE — BOTÕES 100% FUNCIONAIS, REGISTRANDO E MOSTRANDO NÚMEROS! -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, get, set, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
@@ -476,6 +474,9 @@ const db = getDatabase(app);
 const estatisticasRef = ref(db, "estatisticas");
 const visitantesRef = ref(db, "visitantes");
 
+// ✅ DETECTA NOVA SESSÃO (fechou e abriu o navegador)
+const CHAVE_SESSAO = 'sessao_will_ativa';
+
 function obterCodigoVisitante() {
     let codigo = sessionStorage.getItem("codigoVisitante");
     if (!codigo) {
@@ -485,6 +486,14 @@ function obterCodigoVisitante() {
     return codigo;
 }
 const codigoUnico = obterCodigoVisitante();
+
+function ehNovaSessao() {
+    if (!sessionStorage.getItem(CHAVE_SESSAO)) {
+        sessionStorage.setItem(CHAVE_SESSAO, 'sim');
+        return true;
+    }
+    return false;
+}
 
 function formatarNumero(numero) {
     numero = Number(numero) || 0;
@@ -496,32 +505,20 @@ function formatarNumero(numero) {
 function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const v = dados.visitas || 0;
     const c = dados.curtidas || 0;
-    const n = 0;
+    const n = dados.naoCurtidas || 0;
 
     const elViews = document.getElementById("numeroViews");
-    const elTextoViews = document.querySelector(".texto-visualizacoes");
     const elCurtidas = document.getElementById("curtidas");
     const elNaoCurtidas = document.getElementById("naoCurtidas");
     const elBarra = document.getElementById("barra");
-    const elBloco = document.querySelector('.youtube-bloco');
 
     if (elViews) elViews.textContent = formatarNumero(v);
-    if (elTextoViews) elTextoViews.textContent = "visualizações";
     if (elCurtidas) elCurtidas.textContent = formatarNumero(c);
-    if (elNaoCurtidas) elNaoCurtidas.textContent = formatarNumero(0);
+    if (elNaoCurtidas) elNaoCurtidas.textContent = formatarNumero(n);
 
     const total = c + n;
     const porcentagem = total > 0 ? (c / total) * 100 : 0;
     if (elBarra) elBarra.style.width = `${porcentagem}%`;
-
-    if (elBloco) {
-        elBloco.style.cssText = `
-            display: flex !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        `;
-    }
 }
 
 const verificarSeJaVotou = async () => {
@@ -531,14 +528,17 @@ const verificarSeJaVotou = async () => {
         const btnCurtir = document.getElementById("btnCurtir");
         const btnNaoCurtir = document.getElementById("btnNaoCurtir");
         
-        if (btnCurtir) {
-            btnCurtir.classList.toggle("desativado", jaVotou);
-            if (!jaVotou) btnCurtir.classList.remove("curtiu");
+        // ✅ NOVA SESSÃO = LIBERA OS DOIS BOTÕES!
+        if (ehNovaSessao()) {
+            if (btnCurtir) btnCurtir.classList.remove("desativado", "curtiu");
+            if (btnNaoCurtir) btnNaoCurtir.classList.remove("desativado", "naoCurtiu");
+            await set(ref(db, `visitantes/${codigoUnico}/jaVotou`), false);
+            return;
         }
-        if (btnNaoCurtir) {
-            btnNaoCurtir.classList.toggle("desativado", jaVotou);
-            if (!jaVotou) btnNaoCurtir.classList.remove("naoCurtiu");
-        }
+
+        // Mesma sessão = mantém bloqueado
+        if (btnCurtir) btnCurtir.classList.toggle("desativado", jaVotou);
+        if (btnNaoCurtir) btnNaoCurtir.classList.toggle("desativado", jaVotou);
     } catch (e) {
         console.log("Erro ao verificar voto:", e);
     }
@@ -547,14 +547,23 @@ const verificarSeJaVotou = async () => {
 const registrarAcesso = async () => {
     try {
         const snap = await get(ref(db, `visitantes/${codigoUnico}`));
+        const novaSessao = ehNovaSessao();
+
         if (!snap.exists()) {
             await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: false });
             await runTransaction(estatisticasRef, (dados) => {
                 if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
                 dados.visitas = (dados.visitas || 0) + 1;
-                dados.naoCurtidas = 0;
                 return dados;
             });
+        } else if (novaSessao) {
+            // ✅ NOVA SESSÃO = CONTA VISITA + LIBERA VOTOS
+            await runTransaction(estatisticasRef, (dados) => {
+                if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
+                dados.visitas = (dados.visitas || 0) + 1;
+                return dados;
+            });
+            await set(ref(db, `visitantes/${codigoUnico}/jaVotou`), false);
         }
         await verificarSeJaVotou();
     } catch (e) {
@@ -569,6 +578,7 @@ onValue(estatisticasRef, (snap) => {
     console.log("Erro no Firebase:", erro);
 });
 
+// ✅ CURTIR — FUNCIONAL, REGISTRA E SOMA!
 document.addEventListener("click", async (e) => {
     if (e.target.closest("#btnCurtir")) {
         const btn = document.getElementById("btnCurtir");
@@ -578,31 +588,29 @@ document.addEventListener("click", async (e) => {
                 await runTransaction(estatisticasRef, (dados) => {
                     if (!dados) return { visitas: 1, curtidas: 1, naoCurtidas: 0 };
                     dados.curtidas = (dados.curtidas || 0) + 1;
-                    dados.naoCurtidas = 0;
                     return dados;
                 });
-                btn.classList.add("curtiu");
-                document.getElementById("btnNaoCurtir").classList.remove("naoCurtiu");
-                verificarSeJaVotou();
+                btn.classList.add("curtiu", "desativado");
+                document.getElementById("btnNaoCurtir").classList.add("desativado");
             } catch (erro) {
                 alert("Não foi possível registrar seu voto");
             }
         }
     }
 
+    // ✅ NÃO GOSTEI — TOTALMENTE FUNCIONAL, REGISTRA E SOMA DE VERDADE!
     if (e.target.closest("#btnNaoCurtir")) {
         const btn = document.getElementById("btnNaoCurtir");
         if (btn && !btn.classList.contains("desativado")) {
             try {
                 await set(ref(db, `visitantes/${codigoUnico}`), { jaVotou: true });
                 await runTransaction(estatisticasRef, (dados) => {
-                    if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
-                    dados.naoCurtidas = 0;
+                    if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 1 };
+                    dados.naoCurtidas = (dados.naoCurtidas || 0) + 1;
                     return dados;
                 });
-                btn.classList.add("naoCurtiu");
-                document.getElementById("btnCurtir").classList.remove("curtiu");
-                verificarSeJaVotou();
+                btn.classList.add("naoCurtiu", "desativado");
+                document.getElementById("btnCurtir").classList.add("desativado");
             } catch (erro) {
                 alert("Não foi possível registrar seu voto");
             }

@@ -454,7 +454,7 @@ function irPara(pagina) {
 }
 </script>
 
-<!-- FIREBASE — BOTÕES 100% FUNCIONAIS, REGISTRANDO E MOSTRANDO NÚMEROS! -->
+<!-- FIREBASE CORRIGIDO — NÚMEROS NUNCA MAIS ZERAM AO NAVEGAR! -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, get, set, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
@@ -472,21 +472,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const estatisticasRef = ref(db, "estatisticas");
-const visitantesRef = ref(db, "visitantes");
 
-// ✅ DETECTA NOVA SESSÃO (fechou e abriu o navegador)
+// ✅ CHAVES PERSISTENTES — NÃO SE PERDEM AO NAVEGAR!
+const CHAVE_DADOS_CACHE = 'will_estatisticas_cache';
 const CHAVE_SESSAO = 'sessao_will_ativa';
+const CHAVE_CODIGO = 'codigo_visitante_will';
 
+// ✅ CÓDIGO ÚNICO PERMANENTE (localStorage = NÃO SE PERDE!)
 function obterCodigoVisitante() {
-    let codigo = sessionStorage.getItem("codigoVisitante");
+    let codigo = localStorage.getItem(CHAVE_CODIGO);
     if (!codigo) {
         codigo = Math.random().toString(36).slice(2) + Date.now().toString(36);
-        sessionStorage.setItem("codigoVisitante", codigo);
+        localStorage.setItem(CHAVE_CODIGO, codigo);
     }
     return codigo;
 }
 const codigoUnico = obterCodigoVisitante();
 
+// ✅ DETECTA NOVA SESSÃO (só conta nova visita ao FECHAR e ABRIR o navegador)
 function ehNovaSessao() {
     if (!sessionStorage.getItem(CHAVE_SESSAO)) {
         sessionStorage.setItem(CHAVE_SESSAO, 'sim');
@@ -495,6 +498,7 @@ function ehNovaSessao() {
     return false;
 }
 
+// ✅ FORMATAR NÚMEROS
 function formatarNumero(numero) {
     numero = Number(numero) || 0;
     if (numero >= 1000000) return (numero / 1000000).toFixed(1).replace('.0', '') + 'M';
@@ -502,6 +506,20 @@ function formatarNumero(numero) {
     return numero.toString();
 }
 
+// ✅ SALVAR NO CACHE PARA APARECER NA HORA AO VOLTAR
+function salvarCache(dados) {
+    localStorage.setItem(CHAVE_DADOS_CACHE, JSON.stringify(dados));
+}
+
+// ✅ LER DO CACHE
+function lerCache() {
+    try {
+        const salvo = localStorage.getItem(CHAVE_DADOS_CACHE);
+        return salvo ? JSON.parse(salvo) : null;
+    } catch { return null; }
+}
+
+// ✅ ATUALIZAR TELA
 function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const v = dados.visitas || 0;
     const c = dados.curtidas || 0;
@@ -519,8 +537,19 @@ function atualizarTela(dados = { visitas: 0, curtidas: 0, naoCurtidas: 0 }) {
     const total = c + n;
     const porcentagem = total > 0 ? (c / total) * 100 : 0;
     if (elBarra) elBarra.style.width = `${porcentagem}%`;
+
+    salvarCache(dados);
 }
 
+// ✅ MOSTRAR CACHE PRIMEIRO — NÃO FICA ZERADO ENQUANTO CARREGA!
+function inicializarComCache() {
+    const dadosSalvos = lerCache();
+    if (dadosSalvos) {
+        atualizarTela(dadosSalvos); // ✅ APARECE NA HORA!
+    }
+}
+
+// ✅ VERIFICAR VOTO
 const verificarSeJaVotou = async () => {
     try {
         const snap = await get(ref(db, `visitantes/${codigoUnico}`));
@@ -528,7 +557,6 @@ const verificarSeJaVotou = async () => {
         const btnCurtir = document.getElementById("btnCurtir");
         const btnNaoCurtir = document.getElementById("btnNaoCurtir");
         
-        // ✅ NOVA SESSÃO = LIBERA OS DOIS BOTÕES!
         if (ehNovaSessao()) {
             if (btnCurtir) btnCurtir.classList.remove("desativado", "curtiu");
             if (btnNaoCurtir) btnNaoCurtir.classList.remove("desativado", "naoCurtiu");
@@ -536,7 +564,6 @@ const verificarSeJaVotou = async () => {
             return;
         }
 
-        // Mesma sessão = mantém bloqueado
         if (btnCurtir) btnCurtir.classList.toggle("desativado", jaVotou);
         if (btnNaoCurtir) btnNaoCurtir.classList.toggle("desativado", jaVotou);
     } catch (e) {
@@ -544,6 +571,7 @@ const verificarSeJaVotou = async () => {
     }
 };
 
+// ✅ REGISTRAR ACESSO — NÃO CONTA DUPLICADO AO NAVEGAR!
 const registrarAcesso = async () => {
     try {
         const snap = await get(ref(db, `visitantes/${codigoUnico}`));
@@ -557,7 +585,6 @@ const registrarAcesso = async () => {
                 return dados;
             });
         } else if (novaSessao) {
-            // ✅ NOVA SESSÃO = CONTA VISITA + LIBERA VOTOS
             await runTransaction(estatisticasRef, (dados) => {
                 if (!dados) return { visitas: 1, curtidas: 0, naoCurtidas: 0 };
                 dados.visitas = (dados.visitas || 0) + 1;
@@ -571,14 +598,15 @@ const registrarAcesso = async () => {
     }
 };
 
+// ✅ ESCUTA ALTERAÇÕES EM TEMPO REAL
 onValue(estatisticasRef, (snap) => {
     const dados = snap.val();
-    atualizarTela(dados || { visitas: 0, curtidas: 0, naoCurtidas: 0 });
+    if (dados) atualizarTela(dados);
 }, (erro) => {
     console.log("Erro no Firebase:", erro);
 });
 
-// ✅ CURTIR — FUNCIONAL, REGISTRA E SOMA!
+// ✅ BOTÃO CURTIR
 document.addEventListener("click", async (e) => {
     if (e.target.closest("#btnCurtir")) {
         const btn = document.getElementById("btnCurtir");
@@ -598,7 +626,7 @@ document.addEventListener("click", async (e) => {
         }
     }
 
-    // ✅ NÃO GOSTEI — TOTALMENTE FUNCIONAL, REGISTRA E SOMA DE VERDADE!
+    // ✅ BOTÃO NÃO GOSTEI — 100% FUNCIONAL, REGISTRA E MOSTRA!
     if (e.target.closest("#btnNaoCurtir")) {
         const btn = document.getElementById("btnNaoCurtir");
         if (btn && !btn.classList.contains("desativado")) {
@@ -618,11 +646,9 @@ document.addEventListener("click", async (e) => {
     }
 });
 
-window.addEventListener('pageshow', () => atualizarTela());
-window.addEventListener('focus', () => atualizarTela());
-
+// ✅ INICIALIZAÇÃO — MOSTRA CACHE PRIMEIRO, DEPOIS ATUALIZA
 document.addEventListener('DOMContentLoaded', () => {
-    atualizarTela({ visitas: 0, curtidas: 0, naoCurtidas: 0 });
+    inicializarComCache(); // ✅ NÃO FICA ZERADO!
     registrarAcesso();
 });
 </script>

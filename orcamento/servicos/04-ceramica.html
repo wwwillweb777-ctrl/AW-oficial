@@ -46,6 +46,7 @@
         
         .campo-whats { background: rgba(255,255,255,0.1); border: 2px solid #25d366; border-radius: 10px; padding: 15px; margin-top: 20px; display: none; }
         .campo-whats label { margin-top: 0; color: #25d366; }
+        .erro-aviso { color: #ff6b6b; font-size: 13px; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -70,23 +71,23 @@
     <input type="text" id="largura" placeholder="Ex: 5,00">
 
     <label>📏 Altura (metros):</label>
-    <input type="text" id="altura" placeholder="Ex: 4,00">
+    <input type="text" id="altura" placeholder="Ex: 6,00">
 
     <!-- 🟫 DOIS BOTÕES DE CÁLCULO -->
     <button class="btn btn-valor" onclick="calcularApenasValor()">💰 CALCULAR APENAS VALOR DA MÃO DE OBRA</button>
     <button class="btn btn-completo" onclick="mostrarTamanhoCeramica()">📦 CALCULAR COM QUANTIDADE DE CAIXAS</button>
 
-    <!-- 🟫 ÁREA PARA INFORMAR O TAMANHO DA CERÂMICA (aparece só quando escolher) -->
+    <!-- 🟫 ÁREA PARA INFORMAR O TAMANHO DA CERÂMICA -->
     <div class="opcao-tamanho" id="areaTamanho">
         <p class="opcao-titulo">📐 TAMANHO DA CERÂMICA</p>
         <p style="font-size:14px; text-align:center; margin-bottom:10px;">Informe para calcular a quantidade exata de caixas</p>
         <div class="linha-tamanho">
-            <input type="number" id="lado1" class="input-pequeno" placeholder="Ex: 60" min="1">
+            <input type="number" id="lado1" class="input-pequeno" placeholder="Ex: 40" min="1">
             <span>×</span>
-            <input type="number" id="lado2" class="input-pequeno" placeholder="Ex: 60" min="1">
+            <input type="number" id="lado2" class="input-pequeno" placeholder="Ex: 40" min="1">
             <span style="font-size:14px; color:#ffd700;">cm</span>
         </div>
-        <p style="font-size:13px; margin-top:8px; color:#ccc;">Ex: 60×60 | 50×50 | 45×45 | 30×60</p>
+        <p style="font-size:13px; margin-top:8px; color:#ccc;">Ex: 60×60 | 50×50 | 45×45 | 40×40</p>
         <button class="btn btn-completo" onclick="calcularComCaixas()">✅ CONFIRMAR E CALCULAR</button>
     </div>
 
@@ -122,6 +123,7 @@
         💡 <strong>DICAS IMPORTANTES:</strong><br>
         • A base deve estar plana, firme e sem umidade<br>
         • Compre 10% a mais para recortes e perdas — valor já calculado quando informado o tamanho da peça<br>
+        • Confira sempre o rendimento por caixa na embalagem do produto<br>
         • A norma da ABNT NBR 13753 orienta a deixar junta de dilatação no piso cerâmico<br>
         • O piso deve estar curado antes de aplicar<br>
         • Use desempenadeira dentada para argamassa uniforme
@@ -145,6 +147,7 @@
 const PRECO_M2 = 40;
 const SEU_NUMERO = "5531990721928";
 const PERDA = 1.10; // 10% de acréscimo para mais
+const RENDIMENTO_POR_CAIXA = 1.00; // 1 m² por caixa = padrão de mercado
 
 let dadosSalvos = null;
 
@@ -188,7 +191,7 @@ function calcularApenasValor() {
     document.getElementById('area').textContent = formatarNumero(area) + ' m²';
     document.getElementById('valor').textContent = 'R$ ' + formatarNumero(valorFinal);
     document.getElementById('resultado').style.display = 'block';
-    document.getElementById('areaMateriais').style.display = 'none'; // ❌ Não mostra caixas
+    document.getElementById('areaMateriais').style.display = 'none';
 
     dadosSalvos = {
         servico: "CERÂMICA",
@@ -197,7 +200,7 @@ function calcularApenasValor() {
     };
 }
 
-// 📦 CALCULAR COM CAIXAS E MATERIAIS
+// 📦 CALCULAR COM CAIXAS E MATERIAIS — AGORA CORRIGIDO!
 function calcularComCaixas() {
     const larg = obterValor('largura');
     const alt = obterValor('altura');
@@ -216,14 +219,14 @@ function calcularComCaixas() {
     const area = larg * alt;
     const valorFinal = area * PRECO_M2;
 
-    // 🧮 Cálculo exato de caixas
-    const areaPeca = (l1 / 100) * (l2 / 100);
-    const pecasNecessarias = area / areaPeca;
-    const qtdCaixas = Math.ceil(pecasNecessarias * PERDA);
+    // 🧮 CÁLCULO CORRIGIDO: CAIXAS, NÃO PEÇAS!
+    const areaTotalComPerda = area * PERDA;
+    const qtdCaixas = Math.ceil(areaTotalComPerda / RENDIMENTO_POR_CAIXA);
+    
     const sacosArgamassa = Math.ceil(area / 3);
     const kgRejunte = Math.ceil(area * 0.3);
 
-    // ✅ Formato brasileiro nos números
+    // ✅ Formato brasileiro — CAIXAS, não peças!
     document.getElementById('qtd-ceramica').textContent = formatarNumero(qtdCaixas, 0) + ' caixas (' + l1 + '×' + l2 + 'cm +10% para mais)';
     document.getElementById('qtd-argamassa').textContent = formatarNumero(sacosArgamassa, 0) + ' sacos de 20kg';
     document.getElementById('qtd-rejunte').textContent = formatarNumero(kgRejunte, 0) + ' kg';
@@ -231,7 +234,7 @@ function calcularComCaixas() {
     document.getElementById('area').textContent = formatarNumero(area) + ' m²';
     document.getElementById('valor').textContent = 'R$ ' + formatarNumero(valorFinal);
     document.getElementById('resultado').style.display = 'block';
-    document.getElementById('areaMateriais').style.display = 'block'; // ✅ Mostra materiais
+    document.getElementById('areaMateriais').style.display = 'block';
 
     dadosSalvos = {
         servico: "CERÂMICA",
@@ -291,7 +294,7 @@ function enviarWhatsApp() {
     });
 
     mensagem += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    mensagem += `📦 Quando calculado com tamanho da peça, os materiais já incluem acréscimo de 10% para mais (perdas de corte e quebras).`;
+    mensagem += `📦 Materiais calculados com acréscimo de 10% para mais — perdas de corte e quebras já inclusas. Confira sempre o rendimento por caixa do produto escolhido.`;
 
     window.open(`https://wa.me/${SEU_NUMERO}?text=${encodeURIComponent(mensagem)}`, '_blank');
     alert("✅ Orçamento completo! Abrindo WhatsApp...");
